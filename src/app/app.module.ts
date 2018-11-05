@@ -4,13 +4,15 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 import { DataService } from './data.service';
+import { PostModule } from './post/post.module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    PostModule
   ],
   providers: [
     DataService
