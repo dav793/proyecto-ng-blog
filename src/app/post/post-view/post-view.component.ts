@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormGroup, FormBuilder} from '@angular/forms';
 
 import { DataService } from '../../data.service';
-import { Post, Comment } from '../post.model';
+import { Post, Comment, PostFactory } from '../post.model';
 
 @Component({
   selector: 'app-post-view',
@@ -11,24 +11,35 @@ import { Post, Comment } from '../post.model';
 })
 export class PostViewComponent implements OnInit {
 
-  model: Post = new Post({
-    title: 'Un titulo'
-  });
+  model: Post = PostFactory.CreateDefault();
 
-  constructor(private dataService: DataService) {
+  form: FormGroup;
 
-    this.model = this.dataService.findById('posts', '353690247');
+  state: 'view'|'edit' = 'edit';
 
-  }
+  constructor(
+    private dataService: DataService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
-    // console.log(quill);
+
+    this.form = this.createForm(this.model);
+
   }
 
-  onSubmit(form: FormGroup) {
+  createForm(model: Post): FormGroup {
 
-    this.dataService.updateById('posts', '353690247', form.value);
+    const group = this.fb.group({
+      body:             [ model.body,             [] ]
+    });
 
+    return group;
+
+  }
+
+  setState(newState: 'view'|'edit') {
+    this.state = newState;
   }
 
 }

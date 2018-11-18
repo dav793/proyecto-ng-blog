@@ -1,22 +1,40 @@
 
 <h1>Post</h1>
 
-<form #postForm="ngForm" (ngSubmit)="onSubmit(postForm)">
+<button (click)="setState('edit')">Edit</button>
+<button (click)="setState('view')">View</button>
+<br><br>
 
-  <div>
-    <label for="title">Title</label>
-    <input type="text" id="title" name="title" [(ngModel)]="model.title" #title="ngModel">
+<div [ngSwitch]="state">
+
+  <div *ngSwitchCase="'edit'">
+
+    <form [formGroup]="form">
+
+      <div>
+        <quill-editor [formControl]="form.controls['body']"></quill-editor>
+      </div>
+
+      <button type="submit">Save</button>
+
+    </form>
+
   </div>
 
-  <button type="submit">Save</button>
+  <div *ngSwitchCase="'view'">
 
-</form>
+    <div *ngIf="form" [innerHTML]="form.value.body | escapeHtml"></div>
 
-<p>FORM</p>
-<pre>{{ postForm.value | json }}</pre>
+  </div>
 
-<p>MODEL</p>
-<pre>{{ model | json }}</pre>
+</div>
 
+<!--<h3>Model</h3>-->
+<!--<pre>-->
+  <!--{{ model | json }}-->
+<!--</pre>-->
 
-<!--<quill-editor></quill-editor>-->
+<h3>Form</h3>
+<pre *ngIf="form">
+  {{ form.value | json }}
+</pre>
