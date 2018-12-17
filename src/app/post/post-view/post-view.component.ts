@@ -11,24 +11,12 @@ import { Post, Comment } from '../post.model';
 })
 export class PostViewComponent implements OnInit {
 
-  model: Post = new Post({
-    title: 'Un titulo'
-  });
+  constructor(private dataService: DataService) {}
 
-  constructor(private dataService: DataService) {
+  ngOnInit() {}
 
-    this.model = this.dataService.findById('posts', '353690247');
-
-  }
-
-  ngOnInit() {
-    // console.log(quill);
-  }
-
-  onSubmit(form: FormGroup) {
-
-    this.dataService.updateById('posts', '353690247', form.value);
-
+  onDateSelect(date) {
+    console.log(date);
   }
 
 }

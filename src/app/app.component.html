@@ -1,2 +1,10 @@
 
-<app-post-view></app-post-view>
+<app-nav
+  [loggedUser]="loggedUser"
+  (clickedPosts)="goToPosts()"
+  (clickedProfile)="goToProfile()"
+  (clickedLogIn)="goToLogIn()"
+  (clickedLogOut)="logOut()"
+></app-nav>
+
+<!--<app-post-view></app-post-view>-->

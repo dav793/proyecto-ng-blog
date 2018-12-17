@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QuillModule } from 'ngx-quill';
 
 import { PostViewComponent } from './post-view/post-view.component';
@@ -9,6 +10,8 @@ import { PostViewComponent } from './post-view/post-view.component';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
     QuillModule
   ],
   declarations: [PostViewComponent],

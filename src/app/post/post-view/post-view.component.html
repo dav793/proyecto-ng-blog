@@ -1,22 +1,10 @@
 
-<h1>Post</h1>
+<p>
+  <ngb-alert [dismissible]="false">
+    <strong>Warning!</strong> Better check yourself, you're not looking too good.
+  </ngb-alert>
+</p>
 
-<form #postForm="ngForm" (ngSubmit)="onSubmit(postForm)">
+<button class="btn-primary" ngbButtonLabel>XXX</button>
 
-  <div>
-    <label for="title">Title</label>
-    <input type="text" id="title" name="title" [(ngModel)]="model.title" #title="ngModel">
-  </div>
-
-  <button type="submit">Save</button>
-
-</form>
-
-<p>FORM</p>
-<pre>{{ postForm.value | json }}</pre>
-
-<p>MODEL</p>
-<pre>{{ model | json }}</pre>
-
-
-<!--<quill-editor></quill-editor>-->
+<ngb-datepicker #d (select)="onDateSelect($event)"></ngb-datepicker>

@@ -1,0 +1,23 @@
+<ul class="nav">
+
+  <div class="nav-item my-flex grow">
+    <li>
+      <a class="nav-link active" href="#" (click)="emitPostsClick()">Posts</a>
+    </li>
+  </div>
+
+  <div class="nav-item my-flex">
+    <li *ngIf="userIsLogged">
+      <a class="nav-link" href="#" (click)="emitProfileClick()">Welcome {{loggedUserName}}</a>
+    </li>
+
+    <li *ngIf="!userIsLogged">
+      <a class="nav-link" href="#" (click)="emitLogInClick()">Log In</a>
+    </li>
+
+    <li *ngIf="userIsLogged">
+      <a class="nav-link" href="#" (click)="emitLogOutClick()">Log Out</a>
+    </li>
+  </div>
+
+</ul>
