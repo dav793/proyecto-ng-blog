@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import {Observable} from 'rxjs';
 
 import { defaultCollections } from './default.collections';
-import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

@@ -34,7 +34,7 @@ export let defaultCollections = {
   users: [
     {
       id: '152390144',
-      username: '',
+      username: 'pnava',
       fullName: 'Pedro Navarrete',
       birthDate: 408434400000,
       email: 'pedro@navarrete.com',
@@ -43,7 +43,7 @@ export let defaultCollections = {
     },
     {
       id: '152390145',
-      username: '',
+      username: 'hbar',
       fullName: 'Humberto Barrientos',
       birthDate: 408434400000,
       email: 'humberto@barrientos.com',

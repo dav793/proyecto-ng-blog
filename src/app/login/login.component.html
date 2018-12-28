@@ -1,0 +1,22 @@
+
+<form>
+
+  <label for="username">
+    Username:
+    <input id="username" name="username" type="text" [(ngModel)]="loginModel.username"/>
+  </label>
+
+  <br />
+
+  <label for="password">
+    Password:
+    <input id="password" name="password" type="password" [(ngModel)]="loginModel.password"/>
+  </label>
+
+  <br />
+
+  <button (click)="logIn()">Log In</button>
+
+  <p *ngIf="showLogInError" class="text-danger">Usuario no existe o contraseña inválida</p>
+
+</form>

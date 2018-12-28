@@ -5,14 +5,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 
-import { DataService } from './data.service';
 import { PostModule } from './post/post.module';
+
+import { DataService } from './data.service';
+import { UserService } from './user/user.service';
+
 import { NavComponent } from './nav/nav.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +27,8 @@ import { NavComponent } from './nav/nav.component';
     PostModule
   ],
   providers: [
-    DataService
+    DataService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
