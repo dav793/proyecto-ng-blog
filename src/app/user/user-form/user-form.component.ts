@@ -12,8 +12,8 @@ import { defaultCollections } from '../../default.collections'; // para usar las
 export class UserFormComponent implements OnInit {
   
   // la idea es poder interpolarlos en el template dependiendo si queremos editar o crear un usuario :v
-  pageTitleCreateUser: string = 'Create User';
-  pageTitleEditUser: string = 'Edit User';
+  pageTitleCreateUser = 'Create User';
+  pageTitleEditUser = 'Edit User';
 
   model = new User({
 
