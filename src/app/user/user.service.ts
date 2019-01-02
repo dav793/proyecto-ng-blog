@@ -35,6 +35,7 @@ export class UserService {
 
   logOut() {
     this._loggedInUser = null;
+    localStorage.removeItem('loggedUser');
   }
 
   /**

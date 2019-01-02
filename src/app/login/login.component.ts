@@ -26,12 +26,18 @@ export class LoginComponent implements OnInit {
     this.userService.logInUser(this.loginModel.username, this.loginModel.password)
       .subscribe((user: User|null) => {
 
-        if (user)
+        if (user) {
           this.showLogInError = false;
-        else
+          localStorage.setItem('loggedUser', JSON.stringify(user));
+        } else
           this.showLogInError = true;
 
       });
+
+  }
+
+  signUp() {
+    
   }
 
 }
