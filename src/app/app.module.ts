@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app.routing';
+import { PostModule } from './post/post.module';
 
 import { DataService } from './data.service';
-import { PostModule } from './post/post.module';
+
+import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 
 @NgModule({
@@ -19,6 +21,7 @@ import { NavComponent } from './nav/nav.component';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
+    AppRoutingModule,
     PostModule
   ],
   providers: [
