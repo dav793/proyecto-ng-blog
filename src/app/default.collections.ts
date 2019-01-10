@@ -1,4 +1,4 @@
-import {Post, Comment} from './post/post.model';
+import { Post, Comment } from './post/post.model';
 
 export let defaultCollections = {
 
@@ -9,7 +9,12 @@ export let defaultCollections = {
       author: '152390144',
       date: 1542320101194,
       body: 'Lorem ipsum',
-      tags: [],
+      tags: [
+        'perros',
+        'casa',
+        'contenedor',
+        'automovil'
+      ],
       rating: 5,
       numRaters: 1,
       pathImg: '',
@@ -22,8 +27,29 @@ export let defaultCollections = {
       author: '152390144',
       date: 1542320111294,
       body: 'Lorem ipsum',
-      tags: [],
+      tags: [
+        'gatos',
+        'motos',
+        'electron'
+      ],
       rating: 5,
+      numRaters: 1,
+      pathImg: '',
+      numVisits: 1,
+      comments: []
+    },
+    {
+      id: '264982357',
+      title: 'Third blog post',
+      author: '152390144',
+      date: 1542320111294,
+      body: 'Lorem ipsum',
+      tags: [
+        'gatos',
+        'mocos',
+        'electron'
+      ],
+      rating: 4,
       numRaters: 1,
       pathImg: '',
       numVisits: 1,
