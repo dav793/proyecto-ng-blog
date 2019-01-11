@@ -9,6 +9,7 @@ import { DataService } from '../../data.service';
 })
 export class ListadoPostComponent implements OnInit {
   allPost: Post[];
+  allTags: string[];
 
   constructor(private dataService: DataService) { }
 

@@ -6,6 +6,7 @@ import { QuillModule } from 'ngx-quill';
 
 import { PostViewComponent } from './post-view/post-view.component';
 import { ListadoPostComponent } from './listado-post/listado-post.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { ListadoPostComponent } from './listado-post/listado-post.component';
     NgbModule,
     QuillModule
   ],
-  declarations: [PostViewComponent, ListadoPostComponent],
+  declarations: [PostViewComponent, ListadoPostComponent, EditPostComponent],
   exports: [PostViewComponent]
 })
 export class PostModule { }
