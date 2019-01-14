@@ -1,0 +1,12 @@
+.error-header {
+    color: red;
+  }
+  
+.error-text {
+    color: red;
+    font-size: 12px;
+}
+.imgSize {
+  width: 150px;
+  height: 150px;
+}

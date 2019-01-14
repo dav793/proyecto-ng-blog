@@ -1,3 +1,53 @@
-<p>
-  user-form works!
-</p>
+<h2>{{pageTitle}}</h2>
+
+<br/><br/>
+
+<form [formGroup]="form"> 
+    <label>
+        Full Name:
+        <input type="text" formControlName="fullName">
+    </label>
+    <p *ngIf="form.get('fullName').errors && form.get('fullName').errors.fullName" class="error-text">
+        *Required
+    </p>
+    <br /><br /> 
+
+    <label>
+        UserName:
+        <input type="text" formControlName="username">
+    </label>
+
+    <br /><br /> 
+
+    <label>
+        Email:
+        <input type="text" formControlName="email">
+    </label>
+    <p *ngIf="form.get('email').errors && form.get('email').errors.email" class="error-text">
+        Not a valid email
+    </p>
+    <br /><br /> 
+
+    <label>
+        Birth Date:
+        <input type="text" formControlName="birthDate">
+    </label>
+
+    <br /><br /> 
+
+    <label>
+        Profile Image:
+        <input type="text" formControlName="pathImg">
+        <br/><br/>
+
+        <img src={{model.pathImg}} class="imgSize">
+    </label>
+
+    <br /><br /> 
+
+    <label>
+        Interests:
+        <input type="text" formControlName="interests">
+    </label>
+
+</form>
