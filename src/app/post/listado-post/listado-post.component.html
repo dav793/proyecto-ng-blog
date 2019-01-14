@@ -1,31 +1,56 @@
 <div class="container-fluid">
   <div class="row">
-      <div *ngFor="let post of allPost">
-        <div class="col">
-            <div class="card">
-              <div class="card-header text-center">
-                <em>{{ post.title }}</em>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title text-center">Post Information</h5>
-                <p class="card-text">Author: {{ post.author }}</p>
-                <p class="card-text">Date: {{ post.date | date }}</p>
-                <p class="card-text">Tags:
-                    <select>
-                      <option *ngFor="let eachVal of post['tags']">{{ eachVal }}</option>
-                    </select>
-                </p>
-                <p class="card-text">Visits: {{ post.numVisits }}</p>
-              </div>
-              <div class="card-footer">
-                <div class="text-center">
-                  <p class="card-text">Post Rating: {{ post.rating }}</p>
-                  <button type="button" class="btn btn-dark">Edit Post</button>
-                </div>
-              </div>
-            </div>
-        </div>
-        <br />
-      </div>
+    <div class="col-md-12">
+      <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+        <label>
+          Search:
+          <!-- <input type="text" formControlName="search" required> -->
+          <select formControlName="search" >
+            <option value="">Select your option</option>
+            <option *ngFor="let eachVal of this.allTags">{{ eachVal }}</option>
+          </select>
+        </label>
+        &nbsp;
+        <button type="submit" class="btn btn-dark" [disabled]="!searchForm.valid">Submit</button>
+      </form>
+    </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <p>Form Status: {{ searchForm.status }}</p>
+      <p>Form Value: {{ searchForm.value | json }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div *ngFor="let post of allPost">
+      <div class="col">
+        <div class="card">
+          <div class="card-header text-center">
+            <em>{{ post.title }}</em>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center">Post Information</h5>
+            <p class="card-text">Author: {{ post.author }}</p>
+            <p class="card-text">Date: {{ post.date | date }}</p>
+            <p class="card-text">Tags:
+              <select>
+                <option *ngFor="let eachVal of post['tags']">{{ eachVal }}</option>
+              </select>
+            </p>
+            <p class="card-text">Visits: {{ post.numVisits }}</p>
+          </div>
+          <div class="card-footer">
+            <div class="text-center">
+              <p class="card-text">Post Rating: {{ post.rating }}</p>
+              <button type="button" class="btn btn-dark">Edit Post</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+  </div>
+
 </div>
