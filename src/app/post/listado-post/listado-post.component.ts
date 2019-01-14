@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../post.model';
 import { DataService } from '../../data.service';
-import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
+import { FiltradoService } from '../services/filtrado.service';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CompileTemplateMetadata, templateJitUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-listado-post',
@@ -9,14 +12,18 @@ import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
   styleUrls: ['./listado-post.component.css']
 })
 export class ListadoPostComponent implements OnInit {
-  allPost: Post[];
+  allPost: Post[] = [];
+  tempPost: Post[] = [];
   allTags: string[] = [];
 
   searchForm = this.formBuilder.group({
     search: ['', Validators.required]
   });
 
-  constructor(private formBuilder: FormBuilder, private dataService: DataService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private dataService: DataService,
+    private postFilterService: FiltradoService) { }
 
   ngOnInit() {
     this.allPost = this.dataService.findAll('posts');
@@ -36,6 +43,20 @@ export class ListadoPostComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.searchForm.value);
+    // console.log(this.searchForm.controls['search'].value);
+    this.tempPost = [];
+    if (this.searchForm.controls['search'].value.toString() === 'AllTags') {
+      this.tempPost = this.allPost;
+    } else {
+      this.postFilterService.getPostByTag(this.searchForm.controls['search'].value.toString(), this.allPost).subscribe(
+        result => {
+          this.tempPost.push(result);
+        }
+      );
+    }
+
+    // for (let post of this.tempPost) {
+    //   console.log(post.title);
+    // }
   }
 }
