@@ -7,6 +7,7 @@
           <!-- <input type="text" formControlName="search" required> -->
           <select formControlName="search" >
             <option value="">Select your option</option>
+            <option value="AllTags">Show all</option>
             <option *ngFor="let eachVal of this.allTags">{{ eachVal }}</option>
           </select>
         </label>
