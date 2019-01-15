@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Post } from '../post.model';
 import { DataService } from '../../data.service';
 import { FiltradoService } from '../services/filtrado.service';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { CompileTemplateMetadata, templateJitUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-listado-post',
@@ -14,9 +13,12 @@ import { CompileTemplateMetadata, templateJitUrl } from '@angular/compiler';
 export class ListadoPostComponent implements OnInit {
   allPost: Post[] = [];
   tempPost: Post[] = [];
-  allTags: string[] = [];
+  postFilterOptions: string[] = [];
+  postFilterSpecificSearchs: string[] = [];
+  secondFilter = false;
 
   searchForm = this.formBuilder.group({
+    property: ['', Validators.required],
     search: ['', Validators.required]
   });
 
@@ -27,33 +29,48 @@ export class ListadoPostComponent implements OnInit {
 
   ngOnInit() {
     this.allPost = this.dataService.findAll('posts');
-    this.fillAllTags();
-    // Crear servicio de filtrado por medio de los parametros, y hacerle un interface al filtrado al parametro del filtrado
-    // this.allTags = this.filterServiceByTags({tags: 'perros'});
+    this.postFilterOptions = this.postFilterService.getFilterOptionsFromPost();
   }
 
-  fillAllTags() {
-    for (let post of this.allPost) {
-      for (let tag of post.tags) {
-        if (this.allTags.indexOf(tag) === -1) {
-          this.allTags.push(tag);
+  updateSecondFilter() {
+    // console.log(this.searchForm.controls['property'].value);
+    this.postFilterSpecificSearchs = [];
+    if (this.searchForm.controls['property'].value !== '') {
+      this.postFilterService.getSpecificFilters(this.searchForm.controls['property'].value, this.allPost).subscribe(
+        results => {
+          // this.postFilterSpecificSearchs.push(results);
+          console.log(results);
         }
-      }
+      );
+      this.secondFilter = true;
+      // console.log(this.postFilterSpecificSearchs);
+    } else {
+      this.secondFilter = false;
     }
   }
+
+  // fillAllTags() {
+  //   for (let post of this.allPost) {
+  //     for (let tag of post.tags) {
+  //       if (this.postFilterSpecificSearchs.indexOf(tag) === -1) {
+  //         this.postFilterSpecificSearchs.push(tag);
+  //       }
+  //     }
+  //   }
+  // }
 
   onSubmit() {
     // console.log(this.searchForm.controls['search'].value);
-    this.tempPost = [];
-    if (this.searchForm.controls['search'].value.toString() === 'AllTags') {
-      this.tempPost = this.allPost;
-    } else {
-      this.postFilterService.getPostByTag(this.searchForm.controls['search'].value.toString(), this.allPost).subscribe(
-        result => {
-          this.tempPost.push(result);
-        }
-      );
-    }
+    // this.tempPost = [];
+    // if (this.searchForm.controls['search'].value.toString() === 'AllTags') {
+    //   this.tempPost = this.allPost;
+    // } else {
+    //   this.postFilterService.getPostByTag(this.searchForm.controls['search'].value.toString(), this.allPost).subscribe(
+    //     result => {
+    //       this.tempPost.push(result);
+    //     }
+    //   );
+    // }
 
     // for (let post of this.tempPost) {
     //   console.log(post.title);

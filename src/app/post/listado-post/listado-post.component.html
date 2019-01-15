@@ -3,26 +3,42 @@
     <div class="col-md-12">
       <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
         <label>
-          Search:
-          <!-- <input type="text" formControlName="search" required> -->
-          <select formControlName="search" >
+          Search from Property:
+          <select formControlName="property" (ngModelChange)="updateSecondFilter()">
             <option value="">Select your option</option>
-            <option value="AllTags">Show all</option>
-            <option *ngFor="let eachVal of this.allTags" >{{ eachVal }}</option>
+            <option value="rating">rating</option>
+            <option value="date">Date</option>
+            <option value="author">Author</option>
+            <option value="numVisits">Visits</option>
+            <option value="tags">Tags</option>
           </select>
         </label>
         &nbsp;
+
+        <label *ngIf="this.secondFilter">
+          Search:
+          <!-- <input type="text" formControlName="search" required> -->
+          <select formControlName="search">
+            <option value="">Select your option</option>
+            <option value="AllTags">Show all</option>
+            <option *ngFor="let eachVal of this.postFilterSpecificSearchs">{{ eachVal }}</option>
+          </select>
+        </label>
+
+
+        &nbsp;
+
         <button type="submit" class="btn btn-dark" [disabled]="!searchForm.valid">Submit</button>
       </form>
     </div>
   </div>
 
-  <!-- <div class="row">
+  <div class="row">
     <div class="col-md-12">
       <p>Form Status: {{ searchForm.status }}</p>
       <p>Form Value: {{ searchForm.value | json }}</p>
     </div>
-  </div> -->
+  </div>
 
   <div class="row">
     <div *ngFor="let post of tempPost">
