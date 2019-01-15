@@ -1,45 +1,48 @@
 <h2>{{pageTitle}}</h2>
 
-<br/><br/>
+<br/>
 
 <form [formGroup]="form"> 
     <label>
         Full Name:
         <input type="text" formControlName="fullName">
     </label>
-    <p *ngIf="form.get('fullName').errors && form.get('fullName').errors.fullName" class="error-text">
-        *Required
-    </p>
+    <label *ngIf="form.get('fullName').errors" class="error-text">
+        <i>*Required </i>
+    </label>
     <br /><br /> 
 
     <label>
         UserName:
         <input type="text" formControlName="username">
     </label>
-
+    <label *ngIf="form.get('username').errors" class="error-text">
+        <i>*Required</i>
+    </label>
     <br /><br /> 
 
     <label>
         Email:
         <input type="text" formControlName="email">
     </label>
-    <p *ngIf="form.get('email').errors && form.get('email').errors.email" class="error-text">
-        Not a valid email
-    </p>
-    <br /><br /> 
-
-    <label>
-        Birth Date:
-        <input type="text" formControlName="birthDate">
+    <label *ngIf="form.get('email').errors && form.get('email').errors.email" class="error-text">
+        <i>Not a valid email</i>
     </label>
-
     <br /><br /> 
+
+   <div *ngIf="this.isLogged===false">
+        <label>
+            Birth Date:
+            <input type="text" formControlName="birthDate">
+        </label>
+        <br /><br />
+   </div>
+
 
     <label>
         Profile Image:
         <input type="text" formControlName="pathImg">
         <br/><br/>
-
         <img src={{model.pathImg}} class="imgSize">
     </label>
 
@@ -47,7 +50,14 @@
 
     <label>
         Interests:
-        <input type="text" formControlName="interests">
+        <!-- <input type="text" formControlName="interests"> -->
+        <!-- <div *ngFor="let interest of interests" formControlName="interests">
+            <input type="checkbox">{{interest}}
+        </div>         -->
+        <label formArrayName="interests" *ngFor="let interest of form.controls.interests.controls">
+                <input type="checkbox" [formControlName]="interest">
+                {{interests[interest]}}
+        </label>
     </label>
 
 </form>

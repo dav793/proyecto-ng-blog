@@ -39,9 +39,9 @@ export class UserFormComponent implements OnInit {
   
   createFormWithBuilder(model: User): FormGroup {
     const group = this.formBuilder.group({
-      username:       [model.username, []],
-      fullName:       [model.fullName, []],
-      email:          [model.email, []],
+      username:       [model.username, [Validators.required]],
+      fullName:       [model.fullName, [Validators.required]],
+      email:          [model.email, [Validators.email]],
       birthDate:      [model.birthDate, []],
       pathImg:        [model.pathImg, []],
       interests:      [model.interests, []]
@@ -50,7 +50,7 @@ export class UserFormComponent implements OnInit {
   }
 
   checkLoggedUser() {
-     this.isLogged = true; ///
+    this.isLogged = true; ///
     if (this.isLogged) {
       // usuario Logueado
 
@@ -61,7 +61,7 @@ export class UserFormComponent implements OnInit {
         birthDate: 408434400000,
         email: 'pedro@navarrete.com',
         pathImg: 'https://img.peru21.pe/files/ec_article_multimedia_gallery/uploads/2018/09/25/5baa6d8f3a080.jpeg',
-        interests: []
+        interests: ['java', 'angular', 'c++', 'python']
       });
       // this.model = this.userService.loggedInUser; // la línea que queda
       this.pageTitle = this.pageTitleEditUser;
@@ -71,7 +71,6 @@ export class UserFormComponent implements OnInit {
       this.model = new User({});
       this.pageTitle = this.pageTitleCreateUser;
     }
-    // this.profileImage = this.model.pathImg;
   }
 
 
