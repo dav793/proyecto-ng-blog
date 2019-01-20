@@ -17,10 +17,8 @@ export class UserFormComponent implements OnInit {
   pageTitleCreateUser = 'Create User';
   pageTitleEditUser = 'Edit User';
   pageTitle: string;
-
-  // profileImage: string;
-
   form: FormGroup;
+  // interestsForm: FormGroup;
   isLogged = false;
   model: User;
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
@@ -35,6 +33,10 @@ export class UserFormComponent implements OnInit {
     }
     this.checkLoggedUser();
     this.form = this.createFormWithBuilder(this.model);
+    // const interestsFormControls = this.model.interests.map(control => new FormControl(false));
+    // this.interestsForm = this.formBuilder.group(this.model.interests: new FormArray(interestsFormControls));
+
+    // console.log(this.model.interests);
   }
   
   createFormWithBuilder(model: User): FormGroup {
@@ -44,13 +46,13 @@ export class UserFormComponent implements OnInit {
       email:          [model.email, [Validators.email]],
       birthDate:      [model.birthDate, []],
       pathImg:        [model.pathImg, []],
-      interests:      [model.interests, []]
+      interests:      this.formBuilder.array(model.interests)
     });
     return group;
   }
 
   checkLoggedUser() {
-    this.isLogged = true; ///
+    this.isLogged = true; /////////////////
     if (this.isLogged) {
       // usuario Logueado
 

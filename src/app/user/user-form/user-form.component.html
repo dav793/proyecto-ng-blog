@@ -50,14 +50,28 @@
 
     <label>
         Interests:
-        <!-- <input type="text" formControlName="interests"> -->
-        <!-- <div *ngFor="let interest of interests" formControlName="interests">
-            <input type="checkbox">{{interest}}
-        </div>         -->
-        <label formArrayName="interests" *ngFor="let interest of form.controls.interests.controls">
+    </label>
+    <!-- <input type="text" formControlName="interests"> -->
+              
+        <!-- <label formArrayName="interests" *ngFor="let interest of form.controls.interests.controls">
                 <input type="checkbox" [formControlName]="interest">
                 {{interests[interest]}}
-        </label>
-    </label>
+        </label> -->
+
+    <!-- <div *ngFor="let interest of interests; let i=index">
+        <input type="checkbox"[formControlName]="interest">  {{model.interest[i]}}
+    </div>   -->
+
+    <!-- <div *ngFor="let interest of interests; let i = index">
+        <div formArrayName="interests">
+            <div [formGroupName]="i">
+                <input type="checkbox">interest
+            </div>
+        </div>
+    </div> -->
+
+    <div *ngFor="let interest of interests; let i = index">
+        <label>{{model.interests[i].controls}}</label>
+    </div>
 
 </form>
