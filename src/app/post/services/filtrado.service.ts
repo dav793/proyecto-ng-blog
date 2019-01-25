@@ -9,19 +9,8 @@ export class FiltradoService {
 
   constructor() { }
 
-  // getPostByTag(search: string, postArr: Post[]) {
-  //   return Observable.create((observador) => {
-  //     setTimeout(() => {
-  //       for (let post of postArr) {
-  //         if (post.tags.indexOf(search) !== -1) {
-  //           observador.next(post);
-  //         }
-  //       }
-  //     }, 4000);
-  //   });
-  // }
-
   getFilterOptionsFromPost() {
+    // return from(['ranking','date','author','numVisits','tags ']);
     return Observable.create((observador) => {
       observador.next('ranking');
       observador.next('date');
@@ -38,32 +27,55 @@ export class FiltradoService {
       for (let post of postArr) { 
         if (post.hasOwnProperty(filter)) {
           // console.log('Filter: ', filter, ' -- post[filter]: ', post[filter]);
-          
-          
-          arr.push(post[filter]);
+          if (Array.isArray(post[filter])) {
+            // console.log('Working with arrays');
+            for (let eachElement of post[filter]) {
+              if (arr.indexOf(eachElement) === -1) {
+                arr.push(eachElement);
+              }
+            }
+          } else {
+            arr.push(post[filter]);
+          }
         }
       }
       observador.next(arr);
       observador.complete();
     });
-
-    // console.log(filter);
-    // for (let post of postArr) {
-    //   for (let key in post) {
-    //     if (post.hasOwnProperty(key) && key === filter) {
-    //       console.log(key + ' -> ' + post[key]);
-    //     }
-    //   }
-    // }
   }
 
-  getPostByTag(search: string, postArr: Post[]) {
-    return Observable.create((observador) => {
-      for (let post of postArr) {
-        if (post.tags.indexOf(search) !== -1) {
-          observador.next(post);
-        }
+  getSpecificElements(key: string, value: string, objects: any) {
+    console.log(key, value, ' ----> ', objects);
+    let results: Post[] = [];
+    for (let obj of objects) {
+      // console.log(obj[key], ' === ', value);
+      if (obj[key] == value) {
+        results.push(obj);
       }
-    });
+    }
+    // console.log(results);
+    return results;
+    
+    // let results: any;
+    // for (let data of arr) {
+    //   if(data[key].toString === value) {
+    //     results.push(data);
+    //     console.log('Hello');
+    //   }
+    // }
+    // return results;
+
+
+
+    // return Observable.create((observador) => {
+    //   for (let obj of arr) {
+    //     console.log(obj[key]);
+    //     if (obj[key] === value) {
+    //       observador.next(obj);
+    //       console.log(obj);
+    //     }
+    //   }
+    //   observador.complete();
+    // });
   }
 }

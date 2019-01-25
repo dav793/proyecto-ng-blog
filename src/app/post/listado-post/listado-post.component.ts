@@ -29,51 +29,34 @@ export class ListadoPostComponent implements OnInit {
 
   ngOnInit() {
     this.allPost = this.dataService.findAll('posts');
-    this.postFilterOptions = this.postFilterService.getFilterOptionsFromPost();
   }
 
   updateSecondFilter() {
-    // console.log(this.searchForm.controls['property'].value);
     this.postFilterSpecificSearchs = [];
     if (this.searchForm.controls['property'].value !== '') {
       this.postFilterService.getSpecificFilters(this.searchForm.controls['property'].value, this.allPost).subscribe(
         results => {
-          // this.postFilterSpecificSearchs.push(results);
-          console.log(results);
+          let arr: string[] = results;
+          for (let data of arr) {
+            if (this.postFilterSpecificSearchs.indexOf(data) === -1) {
+              this.postFilterSpecificSearchs.push(data);
+            }
+          }
         }
       );
       this.secondFilter = true;
-      // console.log(this.postFilterSpecificSearchs);
     } else {
       this.secondFilter = false;
     }
   }
 
-  // fillAllTags() {
-  //   for (let post of this.allPost) {
-  //     for (let tag of post.tags) {
-  //       if (this.postFilterSpecificSearchs.indexOf(tag) === -1) {
-  //         this.postFilterSpecificSearchs.push(tag);
-  //       }
-  //     }
-  //   }
-  // }
-
   onSubmit() {
-    // console.log(this.searchForm.controls['search'].value);
-    // this.tempPost = [];
-    // if (this.searchForm.controls['search'].value.toString() === 'AllTags') {
-    //   this.tempPost = this.allPost;
-    // } else {
-    //   this.postFilterService.getPostByTag(this.searchForm.controls['search'].value.toString(), this.allPost).subscribe(
-    //     result => {
-    //       this.tempPost.push(result);
-    //     }
-    //   );
-    // }
-
-    // for (let post of this.tempPost) {
-    //   console.log(post.title);
-    // }
+    this.tempPost = [];
+    if(this.searchForm.controls['search'].value === '') {
+      this.tempPost = this.allPost;
+    } else {
+      this.tempPost = this.postFilterService.getSpecificElements(this.searchForm.controls['property'].value, this.searchForm.controls['search'].value, this.allPost);
+    }
+    // console.log(this.tempPost);
   }
 }
