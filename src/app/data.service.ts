@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { defaultCollections } from './default.collections';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class DataService {
   }
 
   init() {
-    // this.resetCollections();    // comente esta linea para activar la permanencia de datos
+    this.resetCollections();    // comente esta linea para activar la permanencia de datos
   }
 
   /**

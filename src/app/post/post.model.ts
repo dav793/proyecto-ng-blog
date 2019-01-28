@@ -5,7 +5,7 @@ export class Post {
   author: string;
   date: number;
   body: string;
-  tags: string[]
+  tags: string[];
   rating: number;
   numRaters: number;
   pathImg: string;
@@ -25,7 +25,7 @@ export class Post {
     this.numVisits = data.numVisits || 0;
     this.comments = data.comments || [];
   }
-};
+}
 
 export class Comment {
   id: string;
@@ -39,4 +39,4 @@ export class Comment {
     this.body = data.body || '';
     this.date = data.date || '';
   }
-};
+}
