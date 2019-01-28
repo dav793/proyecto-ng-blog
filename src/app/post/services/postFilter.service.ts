@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Post } from '../post.model';
 import { Observable } from 'rxjs';
-import { IfStmt } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +19,9 @@ export class PostFilterService {
     // Arreglo de los posibles valores para el segundo filtro acorde al primer filtro
     let arr = [];
     return Observable.create((observador) => {
-      for (let post of postArr) { // Iteration over all the posts
-        if (post.hasOwnProperty(filter)) { // The post has the property with a value
-          if (Array.isArray(post[filter])) { // If the property is an array
+      for (let post of postArr) {
+        if (post.hasOwnProperty(filter)) {
+          if (Array.isArray(post[filter])) {
             for (let eachElement of post[filter]) {
               if (arr.indexOf(eachElement) === -1) {
                 arr.push(eachElement);
@@ -37,7 +36,7 @@ export class PostFilterService {
       }
       observador.next(arr);
       setTimeout(() => { observador.complete() }, 1000);
-      // observador.complete();
+      observador.complete();
     });
   }
 
@@ -49,7 +48,7 @@ export class PostFilterService {
         for(let elem of obj[key]) {
           if(elem == value) {
             results.push(obj);
-            break; // This avois to add an element to the result more than once
+            break; // This avoids to add an element to the result more than once
           }
         }
       } else {
@@ -58,7 +57,6 @@ export class PostFilterService {
         }
       }
     }
-    // console.log(results);
     return results;
   }
 }
