@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Post } from '../post.model';
-import { Observable, from } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { IfStmt } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FiltradoService {
+export class PostFilterService {
 
   constructor() { }
 
@@ -43,12 +43,19 @@ export class FiltradoService {
 
   // This is the method that returns all the objects that have the specied elements
   getSpecificElements(key: string, value: string, objects: any) {
-    // console.log(key, value, ' ----> ', objects);
     let results: Post[] = [];
     for (let obj of objects) {
-      // console.log(obj[key], ' === ', value);
-      if (obj[key] == value) {
-        results.push(obj);
+      if(Array.isArray(obj[key])) {
+        for(let elem of obj[key]) {
+          if(elem == value) {
+            results.push(obj);
+            break; // This avois to add an element to the result more than once
+          }
+        }
+      } else {
+        if (obj[key] == value) {
+          results.push(obj);
+        }
       }
     }
     // console.log(results);

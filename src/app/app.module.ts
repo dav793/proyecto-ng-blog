@@ -10,7 +10,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 
 import { DataService } from './data.service';
-import { FiltradoService } from './post/services/filtrado.service';
 
 import { PostModule } from './post/post.module';
 import { NavComponent } from './nav/nav.component';
@@ -30,8 +29,7 @@ import { NavComponent } from './nav/nav.component';
     PostModule
   ],
   providers: [
-    DataService,
-    FiltradoService
+    DataService
   ],
   bootstrap: [AppComponent]
 })

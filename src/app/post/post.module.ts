@@ -4,12 +4,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QuillModule } from 'ngx-quill';
 
-import { PostViewComponent } from './post-view/post-view.component';
 import { ListadoPostComponent } from './listado-post/listado-post.component';
-import { EditPostComponent } from './edit-post/edit-post.component';
-import { PostFormComponent } from './post-form/post-form.component';
-import { PostComponent } from './post.component';
+import { PostFilterFormComponent } from './post-filter-form/post-filter-form.component';
 import { PostThumbnailComponent } from './post-thumbnail/post-thumbnail.component';
+
+import { PostFilterService } from './services/postFilter.service';
 
 @NgModule({
   imports: [
@@ -19,7 +18,13 @@ import { PostThumbnailComponent } from './post-thumbnail/post-thumbnail.componen
     NgbModule,
     QuillModule
   ],
-  declarations: [PostViewComponent, ListadoPostComponent, EditPostComponent, PostFormComponent, PostComponent, PostThumbnailComponent],
-  exports: [PostViewComponent]
+  declarations: [
+    ListadoPostComponent, 
+    PostFilterFormComponent,
+    PostThumbnailComponent
+  ],
+  providers: [
+    PostFilterService
+  ]
 })
 export class PostModule { }

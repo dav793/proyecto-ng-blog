@@ -1,4 +1,4 @@
-<app-post-form (finalPostEvent)="workFilteredList($event)" (showList)="showResults($event)"></app-post-form>
+<app-post-filter-form (finalPostEvent)="workFilteredList($event)" (showList)="showResults($event)"></app-post-filter-form>
 <div *ngIf="showList">
     <div *ngFor="let post of finalPosts">
         <app-post-thumbnail [post]="post"></app-post-thumbnail>

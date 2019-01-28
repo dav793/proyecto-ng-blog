@@ -1,16 +1,16 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { FiltradoService } from '../services/filtrado.service';
+import { PostFilterService } from '../services/postFilter.service';
 import { DataService } from 'src/app/data.service';
 import { Subscription } from 'rxjs';
 import { Post } from '../post.model';
 
 @Component({
-  selector: 'app-post-form',
-  templateUrl: './post-form.component.html',
-  styleUrls: ['./post-form.component.css']
+  selector: 'app-post-filter-form',
+  templateUrl: './post-filter-form.component.html',
+  styleUrls: ['./post-filter-form.component.css']
 })
-export class PostFormComponent implements OnInit {
+export class PostFilterFormComponent implements OnInit {
 
   postForm: FormGroup;
 
@@ -23,14 +23,13 @@ export class PostFormComponent implements OnInit {
   subscription: Subscription;
 
   @Output() finalPostEvent: EventEmitter<Post[]> = new EventEmitter();
-
   @Output() showList: EventEmitter<boolean> = new EventEmitter();
 
   finalPost: Post[] = [];
   tempPosts: Post[] = [];
 
   constructor(private fb: FormBuilder, 
-    private filtradoService: FiltradoService, 
+    private postFilterService: PostFilterService, 
     private dataService: DataService) {
     this.postForm = fb.group({
       postAttribute: ['', Validators.required],
@@ -40,7 +39,7 @@ export class PostFormComponent implements OnInit {
 
   ngOnInit() {
     // Ading the first filter options
-    this.firstFilterOptions = this.filtradoService.getFilterOptionsFromPost();
+    this.firstFilterOptions = this.postFilterService.getFilterOptionsFromPost();
     this.tempPosts = this.dataService.findAll('posts');
     this.firstFilter = true;
   }
@@ -57,7 +56,7 @@ export class PostFormComponent implements OnInit {
         this.secondFilter = false;
       } else {
         this.postForm.get('postAttributeValue').setValue('');
-        this.filtradoService.getSpecificFilters(this.postForm.get('postAttribute').value, this.tempPosts).subscribe(
+        this.postFilterService.getSpecificFilters(this.postForm.get('postAttribute').value, this.tempPosts).subscribe(
           filterOptions => { 
             this.secondFilter = false;
             this.secondFilterOptions = filterOptions;
@@ -75,7 +74,7 @@ export class PostFormComponent implements OnInit {
 
   onSubmit() {
     if(this.postForm.get('postAttribute').value != "all") {
-      this.finalPost = this.filtradoService. getSpecificElements(
+      this.finalPost = this.postFilterService. getSpecificElements(
         this.postForm.get('postAttribute').value, 
         this.postForm.get('postAttributeValue').value, 
         this.tempPosts
