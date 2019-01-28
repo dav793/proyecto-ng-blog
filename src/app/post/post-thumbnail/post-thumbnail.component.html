@@ -1,0 +1,25 @@
+<div class="col">
+  <div class="card">
+    <div class="card-header text-center">
+      <em>{{ post.title }}</em>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title text-center">Post Information</h5>
+      <p class="card-text">Author: {{ post.author }}</p>
+      <p class="card-text">Date: {{ post.date | date }}</p>
+      <p class="card-text">Tags:
+        <select>
+          <option *ngFor="let eachVal of post['tags']">{{ eachVal }}</option>
+        </select>
+      </p>
+      <p class="card-text">Visits: {{ post.numVisits }}</p>
+    </div>
+    <div class="card-footer">
+      <div class="text-center">
+        <p class="card-text">Post Rating: {{ post.rating }}</p>
+        <button type="button" class="btn btn-dark">Edit Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+<br />

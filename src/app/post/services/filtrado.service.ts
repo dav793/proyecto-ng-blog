@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Post } from '../post.model';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,43 +10,40 @@ export class FiltradoService {
 
   constructor() { }
 
+  // The following are the only attributes in which we can filter the posts
   getFilterOptionsFromPost() {
-    // return from(['ranking','date','author','numVisits','tags ']);
-    return Observable.create((observador) => {
-      observador.next('ranking');
-      observador.next('date');
-      observador.next('author');
-      observador.next('numVisits');
-      observador.next('tags');
-      observador.complete();
-    });
+    // This are the only parameters that all post can be filter by.
+    return ['numRaters','date','author','numVisits','tags'];
   }
 
-  getSpecificFilters(filter: string, postArr: any) {
+  getSpecificFilters(filter: string, postArr: any) {  
+    // Arreglo de los posibles valores para el segundo filtro acorde al primer filtro
     let arr = [];
     return Observable.create((observador) => {
-      for (let post of postArr) { 
-        if (post.hasOwnProperty(filter)) {
-          // console.log('Filter: ', filter, ' -- post[filter]: ', post[filter]);
-          if (Array.isArray(post[filter])) {
-            // console.log('Working with arrays');
+      for (let post of postArr) { // Iteration over all the posts
+        if (post.hasOwnProperty(filter)) { // The post has the property with a value
+          if (Array.isArray(post[filter])) { // If the property is an array
             for (let eachElement of post[filter]) {
               if (arr.indexOf(eachElement) === -1) {
                 arr.push(eachElement);
               }
             }
           } else {
-            arr.push(post[filter]);
+            if(arr.indexOf(post[filter]) === -1) {
+              arr.push(post[filter]);
+            }
           }
         }
       }
       observador.next(arr);
-      observador.complete();
+      setTimeout(() => { observador.complete() }, 1000);
+      // observador.complete();
     });
   }
 
+  // This is the method that returns all the objects that have the specied elements
   getSpecificElements(key: string, value: string, objects: any) {
-    console.log(key, value, ' ----> ', objects);
+    // console.log(key, value, ' ----> ', objects);
     let results: Post[] = [];
     for (let obj of objects) {
       // console.log(obj[key], ' === ', value);
@@ -55,27 +53,5 @@ export class FiltradoService {
     }
     // console.log(results);
     return results;
-    
-    // let results: any;
-    // for (let data of arr) {
-    //   if(data[key].toString === value) {
-    //     results.push(data);
-    //     console.log('Hello');
-    //   }
-    // }
-    // return results;
-
-
-
-    // return Observable.create((observador) => {
-    //   for (let obj of arr) {
-    //     console.log(obj[key]);
-    //     if (obj[key] === value) {
-    //       observador.next(obj);
-    //       console.log(obj);
-    //     }
-    //   }
-    //   observador.complete();
-    // });
   }
 }
