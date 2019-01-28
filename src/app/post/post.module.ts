@@ -23,6 +23,9 @@ import { PostFilterService } from './services/postFilter.service';
     PostFilterFormComponent,
     PostThumbnailComponent
   ],
+  exports: [
+    ListadoPostComponent
+  ],
   providers: [
     PostFilterService
   ]

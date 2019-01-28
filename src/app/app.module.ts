@@ -12,7 +12,6 @@ import { PostModule } from './post/post.module';
 
 import { DataService } from './data.service';
 
-import { PostModule } from './post/post.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 
