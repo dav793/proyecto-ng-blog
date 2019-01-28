@@ -5,7 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QuillModule } from 'ngx-quill';
 
 import { PostViewComponent } from './post-view/post-view.component';
-import { PostEditComponent } from './post-edit/post-edit.component';
+// import { PostEditComponent } from './post-edit/post-edit.component';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { PostEditComponent } from './post-edit/post-edit.component';
   ],
   declarations: [
     PostViewComponent,
-    PostEditComponent
+    // PostEditComponent
   ],
   exports: [PostViewComponent]
 })

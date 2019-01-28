@@ -10,11 +10,22 @@ import { DataService } from './data.service';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
+import { PostEditComponent } from './post/post-edit/post-edit.component';
+
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
+    PostEditComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +33,13 @@ import { NavComponent } from './nav/nav.component';
     ReactiveFormsModule,
     NgbModule,
     AppRoutingModule,
-    PostModule
+    PostModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatChipsModule
   ],
   providers: [
     DataService

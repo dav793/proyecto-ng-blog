@@ -1,5 +1,46 @@
 
-<div *ngIf="postForm">
-  <pre>{{ postForm.value | json }}</pre>
-</div>
+<h4> {{ pageTitle }} </h4>
+
+<form [formGroup]="postForm">
+
+  <label> Post title: </label> 
+      <input type="text" class="post-input" formControlName="title" placeholder="New Title"
+        [ngClass]="{'is-invalid': (postForm.get('title').touched || postForm.get('title').dirty) && !postForm.get('title').valid }" />
+        <label *ngIf="postForm.get('title').errors" class="error-text">
+            <i>*Required (must be longer than 3 characters) </i>
+        </label>
+          <!-- <span class="invalid-feedback">
+            <span *ngIf="postForm.get('title').errors?.required">
+              Please enter the post title.
+            </span>
+            <span *ngIf="postForm.get('title').errors?.minlength">
+              The title must be longer than 3 characters.
+            </span>
+          </span> -->
+
+<br/>
+  <label> Date: </label> 
+    <input type="text" class="post-input" formControlName="date">
+
+<br/>  
+
+<div>
+    Related Tags:
+
+    <div *ngFor="let tagName of tagOptions">
+
+      <label>
+        <input type="checkbox" class="tags-input" value="{{tagName}}" formControlName="tags">
+        <span>{{ tagName }}</span>
+      </label>
+
+    </div>
+</div> 
+
+</form>
+
+<br>Dirty:   {{ postForm.dirty }}
+<br>Touched: {{ postForm.touched }}
+<br>Valid:   {{ postForm.valid }}
+<br>Value:   {{ postForm.value | json }}
 

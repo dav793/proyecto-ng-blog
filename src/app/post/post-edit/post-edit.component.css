@@ -1,0 +1,10 @@
+.error-text {
+    color: red;
+    font-size: 12px;
+}
+.post-input {
+    margin: 20px;
+}
+.tags-input {
+    margin: 10px;
+}
