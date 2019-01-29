@@ -14,8 +14,8 @@ export class PostFilterFormComponent implements OnInit {
 
   postForm: FormGroup;
 
-  firstFilter = false;
-  secondFilter = false;
+  displayFirstFilter = false;
+  displaySecondFilter = false;
   
   firstFilterOptions: string[] = [];
   secondFilterOptions: string[] = [];
@@ -41,31 +41,31 @@ export class PostFilterFormComponent implements OnInit {
     // Ading the first filter options
     this.firstFilterOptions = this.postFilterService.getFilterOptionsFromPost();
     this.tempPosts = this.dataService.findAll('posts');
-    this.firstFilter = true;
+    this.displayFirstFilter = true;
   }
 
   updateSecondFilter(data: any) {
     this.secondFilterOptions = [];
     this.showList.emit(false);
-    if(this.postForm.get('postAttribute').value == '') {
-      this.secondFilter = false;
+    if (this.postForm.get('postAttribute').value === '') {
+      this.displaySecondFilter = false;
       this.postForm.get('postAttributeValue').setValue('');
     } else {
-      if(this.postForm.get('postAttribute').value == 'all') {
+      if (this.postForm.get('postAttribute').value === 'all') {
         this.postForm.get('postAttributeValue').setValue('all');
-        this.secondFilter = false;
+        this.displaySecondFilter = false;
       } else {
         this.postForm.get('postAttributeValue').setValue('');
         this.postFilterService.getSpecificFilters(this.postForm.get('postAttribute').value, this.tempPosts).subscribe(
           filterOptions => { 
-            this.secondFilter = false;
+            this.displaySecondFilter = false;
             this.secondFilterOptions = filterOptions;
           },
           error => { 
-            console.log('Error: ' + error) 
+            console.log('Error: ' + error);
           },
-          _ => { 
-            this.secondFilter = true;
+          _ => {
+            this.displaySecondFilter = true;
           }
         );
       }
@@ -73,7 +73,7 @@ export class PostFilterFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.postForm.get('postAttribute').value != "all") {
+    if (this.postForm.get('postAttribute').value !== "all") {
       this.finalPost = this.postFilterService. getSpecificElements(
         this.postForm.get('postAttribute').value, 
         this.postForm.get('postAttributeValue').value, 
