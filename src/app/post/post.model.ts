@@ -51,3 +51,15 @@ export class Comment {
     this.date = data.date || '';
   }
 };
+
+export class PostFactory {
+
+  static CreateDefault(): Post {
+    return new Post({
+      body: `
+      <h4> Hola Mundo </h4>
+    `
+    });
+  }
+
+}

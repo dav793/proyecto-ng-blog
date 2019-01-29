@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { PostService } from '../post.service';
-import { Post, Comment } from '../post.model';
+import { Post, PostFactory } from '../post.model';
 
 import * as moment from 'moment';
 
@@ -19,10 +19,15 @@ export class PostEditComponent implements OnInit {
   post: Post;
  
   postForm: FormGroup;
+  quillForm: FormGroup;
+
   pageTitle:string = 'Create/Edit View';
+  state: 'view'|'edit' = 'edit';
   
   actualDate = moment().format('D/MM/YYYY');
   tagOptions = Post.postTags;
+
+  model: Post = PostFactory.CreateDefault();
 
   constructor(
     private postService: PostService,
@@ -37,7 +42,13 @@ export class PostEditComponent implements OnInit {
       date: {value: this.actualDate, disabled: true},
       tags: false
     })
+
+    this.quillForm = this.formBuilder.group({
+      body: [this.model.body, []]
+    })
   }
 
-
+  setState(newState: 'view'|'edit') {
+    this.state = newState;
+  }
 }
