@@ -3,35 +3,32 @@
 
 <form [formGroup]="postForm">
 
-  <label> Post title: </label> 
-      <input type="text" class="post-input" formControlName="title" placeholder="New Title"
+  <!-- <label> <h6> Post title: </h6> </label>  -->
+  <mat-form-field>
+      <input matInput formControlName="title" placeholder="New Title"
         [ngClass]="{'is-invalid': (postForm.get('title').touched || postForm.get('title').dirty) && !postForm.get('title').valid }" />
+  </mat-form-field>
         <label *ngIf="postForm.get('title').errors" class="error-text">
             <i>*Required (must be longer than 3 characters) </i>
         </label>
-          <!-- <span class="invalid-feedback">
-            <span *ngIf="postForm.get('title').errors?.required">
-              Please enter the post title.
-            </span>
-            <span *ngIf="postForm.get('title').errors?.minlength">
-              The title must be longer than 3 characters.
-            </span>
-          </span> -->
-
+  
 <br/>
-  <label> Date: </label> 
-    <input type="text" class="post-input" formControlName="date">
-
+  <label> <h6> Date: </h6> </label> 
+  <br/>
+  <mat-form-field>
+    <input matInput formControlName="date">
+  </mat-form-field>
+<br/>  
 <br/>  
 
-<div>
-    Related Tags:
+<h6> Related Tags: </h6>
+<br/>  
+<div class="row">
 
-    <div *ngFor="let tagName of tagOptions">
+    <div *ngFor="let tagName of tagOptions" class="col-4">
 
       <label>
-        <input type="checkbox" class="tags-input" value="{{tagName}}" formControlName="tags">
-        <span>{{ tagName }}</span>
+        <mat-checkbox color="primary" formControlName="tags"> <span>{{ tagName }}</span> </mat-checkbox>  
       </label>
 
     </div>
@@ -40,16 +37,46 @@
 <br />
 
 
-  <h6> Post </h6>
+<h6> Post: </h6>
 
-    <button (click)="setState('edit')">Edit</button>
-    <button (click)="setState('view')">View</button>
+    <button mat-button (click)="setState('edit')">Edit</button>
+    <button mat-button (click)="setState('view')">View</button>
     <br><br>
-  
-</form>
 
-<br>Dirty:   {{ postForm.dirty }}
+    <div class="quillEdit" [ngSwitch]="state">
+
+        <div *ngSwitchCase="'edit'">
+      
+          <form [formGroup]="quillForm">
+      
+            <div>
+              <quill-editor [formControl]="quillForm.controls['body']"></quill-editor>
+            </div>
+      
+          </form>
+      
+        </div>
+      
+        <div *ngSwitchCase="'view'">
+      
+          <div *ngIf="quillForm" [innerHTML]="quillForm.value.body"></div>
+      
+        </div>
+      
+      </div>
+
+        <button mat-flat-button color="primary" class="doneButton">Done...</button> 
+  </form>
+
+<!-- <br>Dirty:   {{ postForm.dirty }}
 <br>Touched: {{ postForm.touched }}
 <br>Valid:   {{ postForm.valid }}
 <br>Value:   {{ postForm.value | json }}
+
+<br/>
+<br/>
+<h4>quillForm</h4>
+<pre *ngIf="quillForm">
+  {{ quillForm.value | json }}
+</pre> -->
 

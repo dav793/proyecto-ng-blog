@@ -57,7 +57,7 @@ export class PostFactory {
   static CreateDefault(): Post {
     return new Post({
       body: `
-      <h4> Hola Mundo </h4>
+      <h4> You can write and edit whatever you want here!!!!! </h4>
     `
     });
   }
