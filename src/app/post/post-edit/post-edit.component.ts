@@ -40,10 +40,7 @@ export class PostEditComponent implements OnInit {
     this.postForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(3)]], 
       date: {value: this.actualDate, disabled: true},
-      tags: false
-    })
-
-    this.quillForm = this.formBuilder.group({
+      tags: false,
       body: [this.model.body, []]
     })
   }
