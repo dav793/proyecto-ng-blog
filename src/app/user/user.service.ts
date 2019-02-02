@@ -53,4 +53,16 @@ export class UserService {
     return null;
   }
 
+  checkUserNameAvailable(username: string): Observable<boolean> {
+    return new Observable<boolean>(observer => {
+      // setTimeout(() => {
+        if (this.findUserByUsername(username))
+          observer.next(true);
+        else
+          observer.next(false);
+        observer.complete();
+      // }, 1000);
+    });
+  }
+
 }

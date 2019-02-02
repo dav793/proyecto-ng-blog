@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, FormArray, FormBuilder, Validators} from '@angular/forms';
 
 import { UserService } from '../user.service';
+import { UserNameValidator } from '../user-form/user-name.validator';
 
 import { User } from '../user.model';
 
@@ -41,7 +42,7 @@ export class UserFormComponent implements OnInit {
   
   createFormWithBuilder(model: User): FormGroup {
     const group = this.formBuilder.group({
-      username:       [model.username, [Validators.required]],
+      username:       [model.username, [Validators.required], [UserNameValidator.createValidator(this.userService)]],
       fullName:       [model.fullName, [Validators.required]],
       email:          [model.email, [Validators.email]],
       birthDate:      [model.birthDate, []],
@@ -52,13 +53,13 @@ export class UserFormComponent implements OnInit {
   }
 
   checkLoggedUser() {
-    this.isLogged = true; /////////////////
+    // this.isLogged = true; /////////////////
     if (this.isLogged) {
       // usuario Logueado
 
       this.model = new User({  // para pruebas únicamente
         id: '152390144',
-        username: 'PeNa',
+        username: 'hola',
         fullName: 'Pedro Navarrete',
         birthDate: 408434400000,
         email: 'pedro@navarrete.com',
