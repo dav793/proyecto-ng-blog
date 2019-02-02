@@ -19,7 +19,7 @@
     <label *ngIf="form.get('username').errors" class="error-text">
         <i>*Required</i>
     </label>
-    <label *ngIf="form.controls.username.errors" class="error-text">
+    <label *ngIf="form.get('username').errors.UserNameValidator" class="error-text">
             <i>*this UserName is not available</i>
     </label>
     <br /><br /> 
