@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-12">
+    <div class="text-center">
+      <hr>
+      <form [formGroup]="postForm" (ngSubmit)="onSubmit()" *ngIf="displayFirstFilter">
+        <label> Search By: 
+          <select formControlName="postAttribute" (ngModelChange)="updateSecondFilter($event)">       
+            <option value="">Select an option ...</option>
+            <option value="all">Show all</option>
+            <option *ngFor="let item of firstFilterOptions" [value]="item">{{ item }}</option>
+          </select>
+        </label>
+      
+        &nbsp;
+      
+        <label *ngIf="displaySecondFilter"> Specific search:
+          <select formControlName="postAttributeValue">
+            <option value="">Select an option ...</option>
+            <option *ngFor="let item of secondFilterOptions" [value]="item">{{ item }}</option>
+          </select>
+        </label>
+        &nbsp;
+      
+        <button type="submit" class="ui button" [disabled]="!postForm.valid">Submit</button>
+      </form>
+      <hr>
+      
+    </div>
+  </div>
+</div>
