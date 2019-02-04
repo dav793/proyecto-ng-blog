@@ -5,7 +5,7 @@ export class Post {
   author: string;
   date: number;
   body: string;
-  tags: string[]
+  tags: string[];
   rating: number;
   numRaters: number;
   pathImg: string;
