@@ -1,10 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
+import { RouterModule } from '@angular/router';
+import { appRoutes } from './app-routing.module';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app.routing';
 import { PostModule } from './post/post.module';
+
+import { MaterialPackageModule } from './material-package/material-package.module';
 
 import { DataService } from './data.service';
 
@@ -14,11 +20,6 @@ import { PostEditComponent } from './post/post-edit/post-edit.component';
 
 import { QuillModule } from 'ngx-quill';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,16 +28,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(appRoutes),
     FormsModule,
+    RouterModule,
     ReactiveFormsModule,
     NgbModule,
     AppRoutingModule,
     PostModule,
     QuillModule,
-    MatButtonModule,
-    MatInputModule,
-    BrowserAnimationsModule,
-    MatCheckboxModule
+    MaterialPackageModule
   ],
   providers: [
     DataService

@@ -51,13 +51,11 @@
 
 <h6> Post: </h6>
 
-    <button mat-button (click)="setState('edit')">Edit</button>
-    <button mat-button (click)="setState('view')">View</button>
+    <button mat-button (click)="setState()">Preview</button>
     <br><br>
 
-    <div class="quillEdit" [ngSwitch]="state">
 
-        <div *ngSwitchCase="'edit'">
+        <div class="quillEdit" *ngIf='!preview'>
       
             <div>
               <quill-editor [formControl]="postForm.controls['body']"></quill-editor>
@@ -65,13 +63,12 @@
       
         </div>
       
-        <div *ngSwitchCase="'view'">
+        <div class="quillEdit" *ngIf='preview'>
       
           <div *ngIf="postForm" [innerHTML]="postForm.value.body"></div>
       
         </div>
-      
-      </div>
+
 
         <button mat-flat-button color="primary" class="doneButton">Done...</button> 
   </form>

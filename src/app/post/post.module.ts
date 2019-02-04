@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { PostViewComponent } from './post-view/post-view.component';
+import { ListadoPostComponent } from './listado-post/listado-post.component';
+import { PostFilterFormComponent } from './post-filter-form/post-filter-form.component';
+import { PostThumbnailComponent } from './post-thumbnail/post-thumbnail.component';
+
+import { PostFilterService } from './services/postFilter.service';
 
 @NgModule({
   imports: [
@@ -13,8 +17,15 @@ import { PostViewComponent } from './post-view/post-view.component';
     NgbModule
   ],
   declarations: [
-    PostViewComponent
+    ListadoPostComponent, 
+    PostFilterFormComponent,
+    PostThumbnailComponent
   ],
-  exports: [PostViewComponent]
+  exports: [
+    ListadoPostComponent
+  ],
+  providers: [
+    PostFilterService
+  ]
 })
 export class PostModule { }
