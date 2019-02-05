@@ -13,6 +13,7 @@ export class NavComponent implements OnInit {
   @Output() clickedProfile = new EventEmitter();
   @Output() clickedLogIn = new EventEmitter();
   @Output() clickedLogOut = new EventEmitter();
+  @Output() clickedRegister = new EventEmitter();
 
   constructor() {}
 
@@ -33,6 +34,10 @@ export class NavComponent implements OnInit {
 
   emitLogOutClick() {
     this.clickedLogOut.emit();
+  }
+
+  emitRegisterClick() {
+    this.clickedRegister.emit();
   }
 
   get userIsLogged(): boolean {

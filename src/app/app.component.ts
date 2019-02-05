@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { DataService } from './data.service';
 
@@ -10,7 +11,8 @@ import { DataService } from './data.service';
 export class AppComponent {
 
   constructor(
-    private dataService: DataService
+    private dataService: DataService,
+    private router: Router
   ) {}
 
   goToPosts() {
@@ -23,6 +25,10 @@ export class AppComponent {
 
   goToLogIn() {
     console.log('navigate to log in');
+  }
+
+  goToUserRegister() {
+    this.router.navigate(['users', 'create']);
   }
 
   logOut() {
