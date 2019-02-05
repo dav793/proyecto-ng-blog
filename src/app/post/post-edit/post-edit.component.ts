@@ -13,11 +13,10 @@ import * as moment from 'moment';
 })
 export class PostEditComponent implements OnInit {
 
-  postId: string;
+  // postId: string;
   post: Post;
  
   postForm: FormGroup;
-  quillForm: FormGroup;
 
   pageTitle:string = 'Create/Edit View';
   preview: boolean;
@@ -40,7 +39,7 @@ export class PostEditComponent implements OnInit {
     })
   }
 
-  setState() {
+  setPreview() {
     this.preview = !this.preview;
   }
 }

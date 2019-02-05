@@ -1,6 +1,8 @@
 
 <h4> {{ pageTitle }} </h4>
 
+<div class="container">
+
 <form [formGroup]="postForm">
 
   <div class="container">
@@ -51,7 +53,7 @@
 
 <h6> Post: </h6>
 
-    <button mat-button (click)="setState()">Preview</button>
+    <button mat-button (click)="setPreview()">Preview</button>
     <br><br>
 
 
@@ -73,8 +75,10 @@
         <button mat-flat-button color="primary" class="doneButton">Done...</button> 
   </form>
 
-<br>Dirty:   {{ postForm.dirty }}
+</div>
+
+<!-- <br>Dirty:   {{ postForm.dirty }}
 <br>Touched: {{ postForm.touched }}
 <br>Valid:   {{ postForm.valid }}
-<br>Value:   {{ postForm.value | json }}
+<br>Value:   {{ postForm.value | json }} -->
 
