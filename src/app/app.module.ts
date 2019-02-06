@@ -18,7 +18,7 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { PostEditComponent } from './post/post-edit/post-edit.component';
 
-import { QuillModule } from 'ngx-quill';
+// import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import { QuillModule } from 'ngx-quill';
     NgbModule,
     AppRoutingModule,
     PostModule,
-    QuillModule,
+    // QuillModule,
     MaterialPackageModule
   ],
   providers: [
