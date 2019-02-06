@@ -19,9 +19,14 @@ export class UserFormComponent implements OnInit {
   pageTitleEditUser = 'Edit User';
   pageTitle: string;
   form: FormGroup;
-  // interestsForm: FormGroup;
+  interestsForm: FormGroup;
   isLogged = false;
   model: User;
+
+
+  interests = ['java', 'angular', 'c++', 'python'];
+
+
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
  
   ngOnInit() {
@@ -34,6 +39,7 @@ export class UserFormComponent implements OnInit {
     }
     this.checkLoggedUser();
     this.form = this.createFormWithBuilder(this.model);
+    this.interestsForm = this.createInterestsForm(this.interests);
     // const interestsFormControls = this.model.interests.map(control => new FormControl(false));
     // this.interestsForm = this.formBuilder.group(this.model.interests: new FormArray(interestsFormControls));
 
@@ -47,13 +53,61 @@ export class UserFormComponent implements OnInit {
       email:          [model.email, [Validators.email]],
       birthDate:      [model.birthDate, []],
       pathImg:        [model.pathImg, []],
-      interests:      this.formBuilder.array(model.interests)
+      interests:      [model.interests, []]
     });
     return group;
   }
 
+  createInterestsForm(interests: string[]): FormGroup {
+    let interestsObj = {};
+    interests.forEach(interest => {
+      interestsObj[interest] = [false, []];
+    });
+
+    const group = this.formBuilder.group(interestsObj);
+    this.watchInterestsForm(group);
+
+    return group;
+  }
+
+  watchInterestsForm(group: FormGroup) {
+    let interests = Object.keys(group.controls);
+
+    interests.forEach(interest => {
+      group.get(interest).valueChanges.subscribe(change => {
+
+        if (change === true) {    // agregar a intereses
+
+          let selectedInterests = this.selectedInterests;
+          if (selectedInterests.indexOf(interest) === -1) {   // no existe interest en elemento del form
+            selectedInterests.push(interest);
+            this.form.get('interests').setValue(selectedInterests);
+          }
+
+        }
+        else {                    // remover de intereses
+
+          let selectedInterests = this.selectedInterests;
+          let interestIndex = selectedInterests.indexOf(interest);
+          if (interestIndex !== -1) {   // existe interest en elemento del form
+            selectedInterests.splice(interestIndex, 1);
+            this.form.get('interests').setValue(selectedInterests);
+          }
+
+        }
+
+      });
+    });
+  }
+
+  get selectedInterests(): string[] {
+    if (!this.form)
+      return null;
+    return this.form.get('interests').value;
+  }
+
   checkLoggedUser() {
-    // this.isLogged = true; /////////////////
+    this.isLogged = true; /////////////////
     if (this.isLogged) {
       // usuario Logueado
 
@@ -64,7 +118,8 @@ export class UserFormComponent implements OnInit {
         birthDate: 408434400000,
         email: 'pedro@navarrete.com',
         pathImg: 'https://img.peru21.pe/files/ec_article_multimedia_gallery/uploads/2018/09/25/5baa6d8f3a080.jpeg',
-        interests: ['java', 'angular', 'c++', 'python']
+        // interests: ['java', 'angular', 'c++', 'python']
+        interests: []
       });
       // this.model = this.userService.loggedInUser; // la línea que queda
       this.pageTitle = this.pageTitleEditUser;

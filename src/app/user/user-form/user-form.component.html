@@ -33,13 +33,13 @@
     </label>
     <br /><br /> 
 
-   <div *ngIf="this.isLogged===false">
+    <div *ngIf="this.isLogged===false">
         <label>
             Birth Date:
             <input type="text" formControlName="birthDate">
         </label>
         <br /><br />
-   </div>
+    </div>
 
 
     <label>
@@ -49,32 +49,27 @@
         <img src={{model.pathImg}} class="imgSize">
     </label>
 
-    <br /><br /> 
+    <br /><br />
 
     <label>
         Interests:
     </label>
-    <!-- <input type="text" formControlName="interests"> -->
-              
-        <!-- <label formArrayName="interests" *ngFor="let interest of form.controls.interests.controls">
-                <input type="checkbox" [formControlName]="interest">
-                {{interests[interest]}}
-        </label> -->
 
-    <!-- <div *ngFor="let interest of interests; let i=index">
-        <input type="checkbox"[formControlName]="interest">  {{model.interest[i]}}
-    </div>   -->
+    <div *ngFor="let interest of interests; let i=index">
 
-    <!-- <div *ngFor="let interest of interests; let i = index">
-        <div formArrayName="interests">
-            <div [formGroupName]="i">
-                <input type="checkbox">interest
-            </div>
-        </div>
-    </div> -->
+        <form [formGroup]="interestsForm">
 
-    <div *ngFor="let interest of interests; let i = index">
-        <label>{{model.interests[i].controls}}</label>
+            <label>
+              <input type="checkbox" name="interest" formControlName="{{ interest }}">
+              &nbsp;
+              {{ interest }}
+            </label>
+
+        </form>
+
     </div>
+
+    <!--<pre>{{ interestsForm.value | json }}</pre>-->
+    <!--<pre>{{ form.value | json }}</pre>-->
 
 </form>
