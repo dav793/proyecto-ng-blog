@@ -18,7 +18,7 @@ export class PostEditComponent implements OnInit {
  
   postForm: FormGroup;
 
-  pageTitle:string = 'Create/Edit View';
+  pageTitle = 'Create/Edit View';
   preview: boolean;
   
   actualDate = moment().format('D/MM/YYYY');
@@ -36,7 +36,7 @@ export class PostEditComponent implements OnInit {
       date: {value: this.actualDate, disabled: true},
       tags: false,
       body: [this.model.body, []]
-    })
+    });
   }
 
   setPreview() {

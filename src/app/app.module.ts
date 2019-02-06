@@ -23,8 +23,7 @@ import { PostEditComponent } from './post/post-edit/post-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
-    PostEditComponent
+    NavComponent
   ],
   imports: [
     BrowserModule,

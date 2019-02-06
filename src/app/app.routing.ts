@@ -8,9 +8,10 @@ import { PostEditComponent } from './post/post-edit/post-edit.component';
 const routes: Routes = [
   { path: 'posts', children: [
       { path: 'list', component: ListadoPostComponent },
-      { path: '', pathMatch: 'full', redirectTo: 'list' }
+      { path: 'create', component: PostEditComponent },
+      { path: 'edit', component: PostEditComponent },
+      { path: '', pathMatch: 'full', redirectTo: 'create' }
   ]},
-  { path: 'createEdit', component: PostEditComponent },
   { path: '', pathMatch: 'full', redirectTo: 'posts' },
   { path: '**', pathMatch: 'full', redirectTo: '' }
 ];
