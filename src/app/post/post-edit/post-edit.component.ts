@@ -17,8 +17,11 @@ export class PostEditComponent implements OnInit {
   post: Post;
  
   postForm: FormGroup;
+  tagsForm: FormGroup;
 
-  pageTitle:string = 'Create/Edit View';
+  pageTitleCreate = 'Create Post';
+  pageTitleEdit = 'Edit Post';
+
   preview: boolean;
   
   actualDate = moment().format('D/MM/YYYY');
@@ -34,7 +37,7 @@ export class PostEditComponent implements OnInit {
     this.postForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(3)]], 
       date: {value: this.actualDate, disabled: true},
-      tags: false,
+      tags: [this.model.tags],
       body: [this.model.body, []]
     })
   }
@@ -42,5 +45,5 @@ export class PostEditComponent implements OnInit {
   setPreview() {
     this.preview = !this.preview;
   }
-  
+
 }

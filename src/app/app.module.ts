@@ -16,7 +16,7 @@ import { DataService } from './data.service';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
-import { PostEditComponent } from './post/post-edit/post-edit.component';
+// import { PostEditComponent } from './post/post-edit/post-edit.component';
 
 // import { QuillModule } from 'ngx-quill';
 
@@ -24,7 +24,7 @@ import { PostEditComponent } from './post/post-edit/post-edit.component';
   declarations: [
     AppComponent,
     NavComponent,
-    PostEditComponent
+    // PostEditComponent
   ],
   imports: [
     BrowserModule,
