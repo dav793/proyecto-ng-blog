@@ -31,7 +31,8 @@ import { from } from 'rxjs';
     PostEditComponent
   ],
   exports: [
-    ListadoPostComponent
+    ListadoPostComponent,
+    PostEditComponent
   ],
   providers: [
     PostFilterService

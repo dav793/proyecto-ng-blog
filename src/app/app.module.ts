@@ -23,8 +23,12 @@ import { NavComponent } from './nav/nav.component';
 @NgModule({
   declarations: [
     AppComponent,
+<<<<<<< HEAD
     NavComponent,
     // PostEditComponent
+=======
+    NavComponent
+>>>>>>> a39b2d111f6f2b2a1148455cc9d8278c8168c829
   ],
   imports: [
     BrowserModule,

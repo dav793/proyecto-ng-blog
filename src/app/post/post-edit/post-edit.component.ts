@@ -39,7 +39,7 @@ export class PostEditComponent implements OnInit {
       date: {value: this.actualDate, disabled: true},
       tags: [this.model.tags],
       body: [this.model.body, []]
-    })
+    });
   }
 
   setPreview() {
