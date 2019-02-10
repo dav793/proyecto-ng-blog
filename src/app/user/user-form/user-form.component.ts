@@ -40,10 +40,6 @@ export class UserFormComponent implements OnInit {
     this.checkLoggedUser();
     this.form = this.createFormWithBuilder(this.model);
     this.interestsForm = this.createInterestsForm(this.interests);
-    // const interestsFormControls = this.model.interests.map(control => new FormControl(false));
-    // this.interestsForm = this.formBuilder.group(this.model.interests: new FormArray(interestsFormControls));
-
-    // console.log(this.model.interests);
   }
   
   createFormWithBuilder(model: User): FormGroup {
@@ -107,21 +103,21 @@ export class UserFormComponent implements OnInit {
   }
 
   checkLoggedUser() {
-    this.isLogged = true; /////////////////
+    // this.isLogged = true; /////////////////
     if (this.isLogged) {
       // usuario Logueado
 
-      this.model = new User({  // para pruebas únicamente
-        id: '152390144',
-        username: 'hola',
-        fullName: 'Pedro Navarrete',
-        birthDate: 408434400000,
-        email: 'pedro@navarrete.com',
-        pathImg: 'https://img.peru21.pe/files/ec_article_multimedia_gallery/uploads/2018/09/25/5baa6d8f3a080.jpeg',
-        // interests: ['java', 'angular', 'c++', 'python']
-        interests: []
-      });
-      // this.model = this.userService.loggedInUser; // la línea que queda
+      // this.model = new User({  // para pruebas únicamente
+      //   id: '152390144',
+      //   username: 'hola',
+      //   fullName: 'Pedro Navarrete',
+      //   birthDate: 408434400000,
+      //   email: 'pedro@navarrete.com',
+      //   pathImg: 'https://img.peru21.pe/files/ec_article_multimedia_gallery/uploads/2018/09/25/5baa6d8f3a080.jpeg',
+      //   // interests: ['java', 'angular', 'c++', 'python']
+      //   interests: []
+      // });
+      this.model = this.userService.loggedInUser; // la línea que queda
       this.pageTitle = this.pageTitleEditUser;
       
     } else {
