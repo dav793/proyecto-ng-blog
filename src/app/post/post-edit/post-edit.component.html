@@ -19,9 +19,7 @@
 
       </div>
       <div class="col-sm-3">
-  
-        <label> <h6> Date: </h6> </label> 
-        <br/>
+
         <mat-form-field>
           <input matInput formControlName="date">
         </mat-form-field>
@@ -37,16 +35,22 @@
 
 <h6> Related Tags: </h6>
 <br/>  
-  <div class="row">
+ 
+<div class="row">
 
-      <div *ngFor="let tagName of tagOptions" class="col-4">
+    <div *ngFor="let tag of tags; let i=index" class="col-4">
 
-        <label>
-          <mat-checkbox color="primary" formControlName="tags"> <span>{{ tagName }}</span> </mat-checkbox>  
-        </label>
+        <form [formGroup]="tagsForm">
+  
+            <label>
+              <mat-checkbox color="primary" formControlName="{{ tag }}"> <span>{{ tag }}</span> </mat-checkbox> 
+            </label>
+  
+        </form>
+      
+  </div>
 
-      </div>
-  </div> 
+</div>
 
 <br/>
 
@@ -72,16 +76,12 @@
         </div>
 
 
-        <button mat-flat-button color="primary" class="doneButton">Done...</button> 
+        <button mat-flat-button color="primary" class="doneButton" (click)="buttonAction()" [disabled]='postForm.invalid || !postForm.touched'>Done...</button> 
 
     <pre>{{postForm.value | json}}</pre>
-
+    <pre>{{tagsForm.value | json}}</pre>
+        <pre> {{postForm.touched | json}} </pre>
   </form>
 
 </div>
-
-<!-- <br>Dirty:   {{ postForm.dirty }}
-<br>Touched: {{ postForm.touched }}
-<br>Valid:   {{ postForm.valid }}
-<br>Value:   {{ postForm.value | json }} -->
 

@@ -13,7 +13,7 @@ export class DataService {
   }
 
   init() {
-    this.resetCollections();    // comente esta linea para activar la permanencia de datos
+    // this.resetCollections();    // comente esta linea para activar la permanencia de datos
   }
 
   /**

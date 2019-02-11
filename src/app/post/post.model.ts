@@ -25,17 +25,6 @@ export class Post {
     this.numVisits = data.numVisits || 0;
     this.comments = data.comments || [];
   }
-
-  static get postTags(): string[] {
-    return [
-      'Deadpool',
-      'Wolverine',
-      'The Riddler',
-      'Ras al Gul',
-      'Batman',
-      'Joker'
-    ];
-  }
 };
 
 export class Comment {

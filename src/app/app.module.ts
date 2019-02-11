@@ -16,19 +16,11 @@ import { DataService } from './data.service';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
-// import { PostEditComponent } from './post/post-edit/post-edit.component';
-
-// import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
     AppComponent,
-<<<<<<< HEAD
-    NavComponent,
-    // PostEditComponent
-=======
     NavComponent
->>>>>>> a39b2d111f6f2b2a1148455cc9d8278c8168c829
   ],
   imports: [
     BrowserModule,
@@ -39,7 +31,6 @@ import { NavComponent } from './nav/nav.component';
     NgbModule,
     AppRoutingModule,
     PostModule,
-    // QuillModule,
     MaterialPackageModule
   ],
   providers: [

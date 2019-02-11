@@ -12,7 +12,6 @@ import { PostThumbnailComponent } from './post-thumbnail/post-thumbnail.componen
 import { PostEditComponent } from './post-edit/post-edit.component';
 
 import { PostFilterService } from './services/postFilter.service';
-import { from } from 'rxjs';
 
 
 @NgModule({

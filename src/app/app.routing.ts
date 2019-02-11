@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'posts', children: [
       { path: 'list', component: ListadoPostComponent },
       { path: 'create', component: PostEditComponent },
-      { path: 'edit', component: PostEditComponent },
+      { path: 'edit/:id', component: PostEditComponent },
       { path: '', pathMatch: 'full', redirectTo: 'list' }
   ]},
   { path: '', pathMatch: 'full', redirectTo: 'posts' },
