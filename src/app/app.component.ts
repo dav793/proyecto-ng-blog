@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DataService } from './data.service';
+import { UserService } from './user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,11 @@ export class AppComponent {
 
   constructor(
     private dataService: DataService,
+    private userService: UserService,
     private router: Router
-  ) {}
+  ) {
+    this.userService.setLoggedInUserFromStorage();
+  }
 
   goToPosts() {
     console.log('navigate to posts');

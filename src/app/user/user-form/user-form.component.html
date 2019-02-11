@@ -16,12 +16,14 @@
         UserName:
         <input type="text" formControlName="username">
     </label>
-    <label *ngIf="form.get('username').errors" class="error-text">
+    <label *ngIf="form.get('username').errors && form.get('username').errors.required" class="error-text">
         <i>*Required</i>
     </label>
-    <label *ngIf="form.get('username').errors.UserNameValidator" class="error-text">
+    <label *ngIf="userNameValidatorErrors" class="error-text">
             <i>*this UserName is not available</i>
     </label>
+    <pre> X {{ userNameValidatorErrors }}</pre>
+    <!-- <pre>{{form.get('username').errors | json}}</pre> -->
     <br /><br /> 
 
     <label>

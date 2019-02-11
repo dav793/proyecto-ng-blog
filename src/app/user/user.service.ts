@@ -16,6 +16,13 @@ export class UserService {
   get loggedInUser() {
     return this._loggedInUser;
   }
+  
+  setLoggedInUserFromStorage() {
+    let user = localStorage.getItem('loggedUser');
+    if (user){
+      this._loggedInUser = JSON.parse(user);
+    }
+  }
 
   logInUser(username: string, password: string): Observable<User|null> {
     return new Observable(observer => {

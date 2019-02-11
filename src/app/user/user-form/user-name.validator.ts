@@ -23,9 +23,12 @@ export class UserNameValidator {
 
   static createValidator(checkUserNameService: UserService) {
     return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-
+      // checkUserNameService.checkUserNameAvailable(control.value).subscribe(valorRetorno => {
+      //   console.log(valorRetorno);
+      // });
+      
       return checkUserNameService.checkUserNameAvailable(control.value).pipe(
-        map(isAvailable => (!isAvailable ? { userNameAvailable: false } : null)),
+        map(isNotAvailable => (isNotAvailable ? { userNameAvailable: true } : null)),
         catchError(() => null)
       );
     };

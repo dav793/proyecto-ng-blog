@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { AppComponent } from './app.component';
 
 import { DataService } from './data.service';
+import { UserService } from './user/user.service';
 
 
 import { NavComponent } from './nav/nav.component';
@@ -31,7 +32,8 @@ import { NavComponent } from './nav/nav.component';
     UserModule
   ],
   providers: [
-    DataService
+    DataService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

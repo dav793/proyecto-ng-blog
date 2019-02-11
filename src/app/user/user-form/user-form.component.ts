@@ -30,12 +30,13 @@ export class UserFormComponent implements OnInit {
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
  
   ngOnInit() {
+    console.log(this.userService.loggedInUser);
     if (this.userService.loggedInUser) {
       // tslint:disable-next-line:no-unused-expression
-      this.isLogged === true;
+      this.isLogged = true;
     } else { 
       // tslint:disable-next-line:no-unused-expression
-      this.isLogged === false;
+      this.isLogged = false;
     }
     this.checkLoggedUser();
     this.form = this.createFormWithBuilder(this.model);
@@ -102,6 +103,15 @@ export class UserFormComponent implements OnInit {
     return this.form.get('interests').value;
   }
 
+  get userNameValidatorErrors() {
+    if (!this.form)
+      return null;
+     
+      if (this.form.get('username').errors && this.form.get('username').errors.hasOwnProperty('userNameAvailable')){
+        return this.form.get('username').errors.userNameAvailable;
+     }
+  }
+
   checkLoggedUser() {
     // this.isLogged = true; /////////////////
     if (this.isLogged) {
@@ -114,8 +124,7 @@ export class UserFormComponent implements OnInit {
       //   birthDate: 408434400000,
       //   email: 'pedro@navarrete.com',
       //   pathImg: 'https://img.peru21.pe/files/ec_article_multimedia_gallery/uploads/2018/09/25/5baa6d8f3a080.jpeg',
-      //   // interests: ['java', 'angular', 'c++', 'python']
-      //   interests: []
+      //   interests: ['java', 'angular', 'c++', 'python']
       // });
       this.model = this.userService.loggedInUser; // la línea que queda
       this.pageTitle = this.pageTitleEditUser;
@@ -125,6 +134,7 @@ export class UserFormComponent implements OnInit {
       this.model = new User({});
       this.pageTitle = this.pageTitleCreateUser;
     }
+
   }
 
 

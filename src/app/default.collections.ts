@@ -64,8 +64,8 @@ export let defaultCollections = {
       fullName: 'Pedro Navarrete',
       birthDate: 408434400000,
       email: 'pedro@navarrete.com',
-      pathImg: '',
-      interests: []
+      pathImg: 'https://img.peru21.pe/files/ec_article_multimedia_gallery/uploads/2018/09/25/5baa6d8f3a080.jpeg',
+      interests: ['java', 'angular', 'c++', 'python']
     },
     {
       id: '152390145',
