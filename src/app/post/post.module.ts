@@ -9,9 +9,6 @@ import { PostFilterFormComponent } from './post-filter-form/post-filter-form.com
 import { PostThumbnailComponent } from './post-thumbnail/post-thumbnail.component';
 
 import { PostFilterService } from './services/postFilter.service';
-import { PostCompleteViewComponent } from './post-complete-view/post-complete-view.component';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -19,14 +16,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    QuillModule,
-    BrowserAnimationsModule
+    QuillModule
   ],
   declarations: [
-    ListadoPostComponent, 
+    ListadoPostComponent,
     PostFilterFormComponent,
-    PostThumbnailComponent,
-    PostCompleteViewComponent
+    PostThumbnailComponent
   ],
   exports: [
     ListadoPostComponent

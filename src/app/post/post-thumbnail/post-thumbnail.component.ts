@@ -7,8 +7,4 @@ import { Component, Input } from '@angular/core';
 })
 export class PostThumbnailComponent {
   @Input() post;
-
-  showCompletePost() {
-    console.log("Now we are showing complete post");
-  }
 }
