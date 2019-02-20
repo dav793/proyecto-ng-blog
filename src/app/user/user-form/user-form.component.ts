@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, FormArray, FormBuilder, Validators} from '@angular/forms';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 import { UserService } from '../user.service';
 import { UserNameValidator } from '../user-form/user-name.validator';
@@ -23,9 +23,7 @@ export class UserFormComponent implements OnInit {
   isLogged = false;
   model: User;
 
-
-  interests = ['java', 'angular', 'c++', 'python'];
-
+  interests = [];
 
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
  
@@ -40,6 +38,7 @@ export class UserFormComponent implements OnInit {
     }
     this.checkLoggedUser();
     this.form = this.createFormWithBuilder(this.model);
+    this.interests = this.model.interests;
     this.interestsForm = this.createInterestsForm(this.interests);
   }
   
@@ -63,7 +62,6 @@ export class UserFormComponent implements OnInit {
 
     const group = this.formBuilder.group(interestsObj);
     this.watchInterestsForm(group);
-
     return group;
   }
 
@@ -74,25 +72,22 @@ export class UserFormComponent implements OnInit {
       group.get(interest).valueChanges.subscribe(change => {
 
         if (change === true) {    // agregar a intereses
-
           let selectedInterests = this.selectedInterests;
           if (selectedInterests.indexOf(interest) === -1) {   // no existe interest en elemento del form
             selectedInterests.push(interest);
             this.form.get('interests').setValue(selectedInterests);
           }
-
         }
         else {                    // remover de intereses
 
           let selectedInterests = this.selectedInterests;
           let interestIndex = selectedInterests.indexOf(interest);
           if (interestIndex !== -1) {   // existe interest en elemento del form
-            selectedInterests.splice(interestIndex, 1);
+            selectedInterests.splice(interestIndex, 0); // se le cambió 1 por 0 para que mantenga los check boxes en el form
             this.form.get('interests').setValue(selectedInterests);
           }
 
         }
-
       });
     });
   }
@@ -113,29 +108,20 @@ export class UserFormComponent implements OnInit {
   }
 
   checkLoggedUser() {
-    // this.isLogged = true; /////////////////
-    if (this.isLogged) {
-      // usuario Logueado
-
-      // this.model = new User({  // para pruebas únicamente
-      //   id: '152390144',
-      //   username: 'hola',
-      //   fullName: 'Pedro Navarrete',
-      //   birthDate: 408434400000,
-      //   email: 'pedro@navarrete.com',
-      //   pathImg: 'https://img.peru21.pe/files/ec_article_multimedia_gallery/uploads/2018/09/25/5baa6d8f3a080.jpeg',
-      //   interests: ['java', 'angular', 'c++', 'python']
-      // });
-      this.model = this.userService.loggedInUser; // la línea que queda
+    if (this.isLogged) { // usuario logueado
+      this.model = this.userService.loggedInUser;
       this.pageTitle = this.pageTitleEditUser;
-      
-    } else {
-      // usuario no logueado
+    } else { // usuario no logueado
       this.model = new User({});
       this.pageTitle = this.pageTitleCreateUser;
     }
-
   }
 
-
+  saveChanges() {
+    if (this.isLogged) { // usuario logueado
+      // this.form.controls.get('username')
+    } else { // usuario no logueado
+      
+    }
+  }
 }

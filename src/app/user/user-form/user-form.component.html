@@ -22,7 +22,6 @@
     <label *ngIf="userNameValidatorErrors" class="error-text">
             <i>*this UserName is not available</i>
     </label>
-    <pre> X {{ userNameValidatorErrors }}</pre>
     <!-- <pre>{{form.get('username').errors | json}}</pre> -->
     <br /><br /> 
 
@@ -71,6 +70,7 @@
 
     </div>
 
+    <button (click)="saveChanges()">Save</button>
     <!--<pre>{{ interestsForm.value | json }}</pre>-->
     <!--<pre>{{ form.value | json }}</pre>-->
 
