@@ -10,7 +10,7 @@ const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'list' }
   ]},
   { path: '', pathMatch: 'full', redirectTo: 'posts' },
-  { path: '**', pathMatch: 'full', redirectTo: '' }
+  { path: '**', pathMatch: 'full', redirectTo: 'posts/list' }
 ];
 
 @NgModule({
