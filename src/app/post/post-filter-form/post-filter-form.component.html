@@ -2,7 +2,7 @@
   <div class="col-12">
     <div class="text-center">
       <hr>
-      <form [formGroup]="postForm" (ngSubmit)="onSubmit()" *ngIf="firstFilter">
+      <form [formGroup]="postForm" (ngSubmit)="onSubmit()" *ngIf="displayFirstFilter">
         <label> Search By: 
           <select formControlName="postAttribute" (ngModelChange)="updateSecondFilter($event)">       
             <option value="">Select an option ...</option>
@@ -13,7 +13,7 @@
       
         &nbsp;
       
-        <label *ngIf="secondFilter"> Specific search: 
+        <label *ngIf="displaySecondFilter"> Specific search:
           <select formControlName="postAttributeValue">
             <option value="">Select an option ...</option>
             <option *ngFor="let item of secondFilterOptions" [value]="item">{{ item }}</option>

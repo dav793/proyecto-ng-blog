@@ -12,7 +12,7 @@ export class PostFilterService {
   // The following are the only attributes in which we can filter the posts
   getFilterOptionsFromPost() {
     // This are the only parameters that all post can be filter by.
-    return ['numRaters','date','author','numVisits','tags'];
+    return ['numRaters', 'date', 'author', 'numVisits', 'tags'];
   }
 
   getSpecificFilters(filter: string, postArr: any) {  
@@ -28,14 +28,13 @@ export class PostFilterService {
               }
             }
           } else {
-            if(arr.indexOf(post[filter]) === -1) {
+            if (arr.indexOf(post[filter]) === -1) {
               arr.push(post[filter]);
             }
           }
         }
       }
       observador.next(arr);
-      setTimeout(() => { observador.complete() }, 1000);
       observador.complete();
     });
   }
@@ -44,15 +43,15 @@ export class PostFilterService {
   getSpecificElements(key: string, value: string, objects: any) {
     let results: Post[] = [];
     for (let obj of objects) {
-      if(Array.isArray(obj[key])) {
-        for(let elem of obj[key]) {
-          if(elem == value) {
+      if (Array.isArray(obj[key])) {
+        for (let elem of obj[key]) {
+          if (elem == value) {    // == es necesario
             results.push(obj);
             break; // This avoids to add an element to the result more than once
           }
         }
       } else {
-        if (obj[key] == value) {
+        if (obj[key] == value) {  // == es necesario
           results.push(obj);
         }
       }
