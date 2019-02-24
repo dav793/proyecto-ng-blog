@@ -13,11 +13,16 @@
     </label>
   
     <br />
-  
-    <button (click)="logIn()">Log In</button>
+    <a [routerLink]="['/posts/list']">
+      <button (click)="logIn()">Log In</button>
+    </a>
+    
   
     <p *ngIf="showLogInError" class="text-danger">Usuario no existe o contraseña inválida</p>
   
-    <button (click)="signUp()">Sign Up</button>
+    <a [routerLink]="['/users/create']">
+      <button>Sign Up</button>
+    </a>
+    
 
   </form>

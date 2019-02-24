@@ -15,7 +15,7 @@
     </li>
 
     <li *ngIf="!userIsLogged">
-      <a class="nav-link" (click)="emitLogInClick()">Log In</a>
+      <a class="nav-link" [routerLink]="['/login']">Log In</a>
     </li>
 
     <li *ngIf="userIsLogged">
@@ -23,7 +23,7 @@
     </li>
 
     <li *ngIf="!userIsLogged">
-      <a class="nav-link" (click)="emitRegisterClick()">Regístrese</a>
+      <a class="nav-link" [routerLink]="['/users/create']">Regístrese</a>
     </li>
   </div>
 

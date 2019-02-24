@@ -31,12 +31,6 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('loggedUser', JSON.stringify(user));
         } else
           this.showLogInError = true;
-      });
-      
+      }); 
   }
-
-  signUp() {
-    
-  }
-
 }
