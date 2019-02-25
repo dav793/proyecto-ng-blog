@@ -36,7 +36,6 @@ export class UserService {
         observer.next(null);
 
       observer.complete();
-
     });
   }
 
@@ -62,14 +61,22 @@ export class UserService {
 
   checkUserNameAvailable(username: string): Observable<boolean> {
     return new Observable<boolean>(observer => {
-      // setTimeout(() => {
         if (this.findUserByUsername(username))
           observer.next(true);
         else
           observer.next(false);
         observer.complete();
-      // }, 1000);
     });
+  }
+
+  editLoggedUser(userForEdit: any): any {
+    localStorage.setItem('loggedUser', JSON.stringify(userForEdit));
+    return this.dataService.updateById('users', userForEdit.id, userForEdit);
+  }
+  createNewUser(newUser: any): any {
+    this._loggedInUser = newUser;
+    localStorage.setItem('loggedUser', JSON.stringify(newUser));
+    return this.dataService.create('users', newUser);
   }
 
 }

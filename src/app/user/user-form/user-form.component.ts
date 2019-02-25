@@ -28,7 +28,6 @@ export class UserFormComponent implements OnInit {
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
  
   ngOnInit() {
-    console.log(this.userService.loggedInUser);
     if (this.userService.loggedInUser) {
       // tslint:disable-next-line:no-unused-expression
       this.isLogged = true;
@@ -117,11 +116,17 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  saveChanges() {
+  onSubmit() {
+    const changesInUser = new User(this.form.value);
+    changesInUser.id = this.model.id; // como el form saca info del id, esta debe agregarse
     if (this.isLogged) { // usuario logueado
-      // this.form.controls.get('username')
+      this.model = this.userService.editLoggedUser(changesInUser);
     } else { // usuario no logueado
-      
+      this.model = this.userService.createNewUser(changesInUser);
     }
+    this.form = this.createFormWithBuilder(this.model);
+    this.interests = this.model.interests;
+    this.interestsForm = this.createInterestsForm(this.interests);
   }
+  
 }

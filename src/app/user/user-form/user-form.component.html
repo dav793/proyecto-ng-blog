@@ -2,7 +2,7 @@
 
 <br/>
 
-<form [formGroup]="form"> 
+<form [formGroup]="form" (ngSubmit)="onSubmit()"> 
     <label>
         Full Name:
         <input type="text" formControlName="fullName">
@@ -59,7 +59,7 @@
 
         <form [formGroup]="interestsForm">
 
-            <label>
+            <label class="checkbox-inline">
               <input type="checkbox" name="interest" formControlName="{{ interest }}">
               &nbsp;
               {{ interest }}
@@ -69,7 +69,11 @@
 
     </div>
 
-    <button (click)="saveChanges()">Save</button>
+    <!-- <button (click)="saveChanges()">Save</button> -->
+    <!-- <a [routerLink]="['/posts/list']"> -->
+        <button type="submit" [disabled]="!form.valid">Save</button>
+    <!-- </a> -->
+    
     <!--<pre>{{ interestsForm.value | json }}</pre>-->
     <!--<pre>{{ form.value | json }}</pre>-->
 
