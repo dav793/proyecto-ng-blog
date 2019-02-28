@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {MatChipInputEvent} from '@angular/material';
+// import {MatChipInputEvent} from '@angular/material';
+// import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 import { UserService } from '../user.service';
 import { UserNameValidator } from '../user-form/user-name.validator';
@@ -26,6 +27,13 @@ export class UserFormComponent implements OnInit {
 
   interests = [];
 
+  // propiedades para el chiplist
+  // visible = true;
+  // selectable = true;
+  // removable = true;
+  // addOnBlur = true;
+  // readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
  
   ngOnInit() {
@@ -39,7 +47,7 @@ export class UserFormComponent implements OnInit {
     this.checkLoggedUser();
     this.form = this.createFormWithBuilder(this.model);
     this.interests = this.model.interests;
-    this.interestsForm = this.createInterestsForm(this.interests);
+    // this.interestsForm = this.createInterestsForm(this.interests);
   }
   
   createFormWithBuilder(model: User): FormGroup {
@@ -54,49 +62,74 @@ export class UserFormComponent implements OnInit {
     return group;
   }
 
-  createInterestsForm(interests: string[]): FormGroup {
-    let interestsObj = {};
-    interests.forEach(interest => {
-      interestsObj[interest] = [false, []];
-    });
+  // createInterestsForm(interests: string[]): FormGroup {
+  //   let interestsObj = {};
+  //   interests.forEach(interest => {
+  //     interestsObj[interest] = [false, []];
+  //   });
 
-    const group = this.formBuilder.group(interestsObj);
-    this.watchInterestsForm(group);
-    return group;
-  }
+  //   const group = this.formBuilder.group(interestsObj);
+  //   this.watchInterestsForm(group);
+  //   return group;
+  // }
 
-  watchInterestsForm(group: FormGroup) {
-    let interests = Object.keys(group.controls);
+  // watchInterestsForm(group: FormGroup) {
+  //   let interests = Object.keys(group.controls);
 
-    interests.forEach(interest => {
-      group.get(interest).valueChanges.subscribe(change => {
+  //   interests.forEach(interest => {
+  //     group.get(interest).valueChanges.subscribe(change => {
 
-        if (change === true) {    // agregar a intereses
-          let selectedInterests = this.selectedInterests;
-          if (selectedInterests.indexOf(interest) === -1) {   // no existe interest en elemento del form
-            selectedInterests.push(interest);
-            this.form.get('interests').setValue(selectedInterests);
-          }
-        }
-        else {                    // remover de intereses
+  //       if (change === true) {    // agregar a intereses
+  //         let selectedInterests = this.selectedInterests;
+  //         if (selectedInterests.indexOf(interest) === -1) {   // no existe interest en elemento del form
+  //           selectedInterests.push(interest);
+  //           this.form.get('interests').setValue(selectedInterests);
+  //         }
+  //       }
+  //       else {                    // remover de intereses
 
-          let selectedInterests = this.selectedInterests;
-          let interestIndex = selectedInterests.indexOf(interest);
-          if (interestIndex !== -1) {   // existe interest en elemento del form
-            selectedInterests.splice(interestIndex, 0); // se le cambió 1 por 0 para que mantenga los check boxes en el form
-            this.form.get('interests').setValue(selectedInterests);
-          }
+  //         let selectedInterests = this.selectedInterests;
+  //         let interestIndex = selectedInterests.indexOf(interest);
+  //         if (interestIndex !== -1) {   // existe interest en elemento del form
+  //           selectedInterests.splice(interestIndex, 0); // se le cambió 1 por 0 para que mantenga los check boxes en el form
+  //           this.form.get('interests').setValue(selectedInterests);
+  //         }
 
-        }
-      });
-    });
-  }
+  //       }
+  //     });
+  //   });
+  // }
 
-  get selectedInterests(): string[] {
-    if (!this.form)
-      return null;
-    return this.form.get('interests').value;
-  }
+  // get selectedInterests(): string[] {
+  //   if (!this.form)
+  //     return null;
+  //   return this.form.get('interests').value;
+  // }
+
+  // add(event: MatChipInputEvent): void {
+  //   const input = event.input;
+  //   const value = event.value;
+
+  //   // Add our tag
+  //   if ((value || '').trim()) {
+  //     this.interests.push({name: value.trim()});
+  //   }
+
+  //   // Reset the input value
+  //   if (input) {
+  //     input.value = '';
+  //   }
+  // }
+
+  // remove(interest: any): void {
+  //   const index = this.interests.indexOf(interest);
+
+  //   if (index >= 0) {
+  //     this.interests.splice(index, 1);
+  //   }
+  // }
+
+
 
   get userNameValidatorErrors() {
     if (!this.form)
@@ -127,7 +160,7 @@ export class UserFormComponent implements OnInit {
     }
     this.form = this.createFormWithBuilder(this.model);
     this.interests = this.model.interests;
-    this.interestsForm = this.createInterestsForm(this.interests);
+    // this.interestsForm = this.createInterestsForm(this.interests);
   }
   
 }

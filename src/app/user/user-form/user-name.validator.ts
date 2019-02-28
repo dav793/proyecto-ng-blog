@@ -1,15 +1,3 @@
-// import { AbstractControl, ValidatorFn } from '@angular/forms';
-// import { UserService } from '../user.service';
-
-// export function userNameValidator(isUsed: boolean): ValidatorFn {
-//   return (control: AbstractControl): {[key: string]: any} | null => {
-//     if (isUsed) {
-//         return null;
-//     } else {
-//         return {'is Used': {value: control.value}};
-//     } 
-//   };
-// }
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -23,9 +11,6 @@ export class UserNameValidator {
 
   static createValidator(checkUserNameService: UserService) {
     return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      // checkUserNameService.checkUserNameAvailable(control.value).subscribe(valorRetorno => {
-      //   console.log(valorRetorno);
-      // });
       
       return checkUserNameService.checkUserNameAvailable(control.value).pipe(
         map(isNotAvailable => (isNotAvailable ? { userNameAvailable: true } : null)),

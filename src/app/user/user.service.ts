@@ -61,7 +61,7 @@ export class UserService {
 
   checkUserNameAvailable(username: string): Observable<boolean> {
     return new Observable<boolean>(observer => {
-        if (this.findUserByUsername(username))
+        if (this.findUserByUsername(username) && this._loggedInUser.username !== username)
           observer.next(true);
         else
           observer.next(false);

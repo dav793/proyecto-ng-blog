@@ -55,7 +55,7 @@
         Interests:
     </label>
 
-    <div *ngFor="let interest of interests; let i=index">
+    <!-- <div *ngFor="let interest of interests; let i=index">
 
         <form [formGroup]="interestsForm">
 
@@ -67,7 +67,25 @@
 
         </form>
 
-    </div>
+    </div> -->
+
+    <!-- <mat-form-field>
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let interest of interests" [selectable]="selectable"
+                   [removable]="removable" (removed)="remove(interest)">
+            {{interest.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="New interest..."
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+    </mat-form-field> -->
+
+
+    <br/><br/>
 
     <!-- <button (click)="saveChanges()">Save</button> -->
     <!-- <a [routerLink]="['/posts/list']"> -->
