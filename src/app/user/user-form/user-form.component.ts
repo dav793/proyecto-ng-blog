@@ -18,8 +18,6 @@ import { User } from '../user.model';
 
 
 export class UserFormComponent implements OnInit {
-
-  
   
   // la idea es poder interpolarlos en el template dependiendo si queremos editar o crear un usuario :v
   pageTitleCreateUser = 'Create User';

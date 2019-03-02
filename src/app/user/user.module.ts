@@ -6,16 +6,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserViewComponent } from './user-view/user-view.component';
 
-import {MatChipsModule} from '@angular/material/chips';
-// import { MatIcon , MAT_CHIPS_DEFAULT_OPTIONS , MatFormField, MatChip} from '@angular/material';
-// import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { MaterialPackageModule } from '../material-package/material-package.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatChipsModule
+    MaterialPackageModule
   ],
   declarations: [
     UserFormComponent, 

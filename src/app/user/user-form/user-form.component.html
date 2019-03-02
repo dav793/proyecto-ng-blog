@@ -66,11 +66,11 @@
     </div> -->
 
     <mat-form-field class="example-chip-list">
-            <mat-chip-list #chipList formControlName="tags">
-              <mat-chip *ngFor="let tag of tagsList" 
+            <mat-chip-list #chipList formControlName="interests">
+              <mat-chip *ngFor="let interest of interests" 
                         [selectable]="selectable"
                         [removable]="removable" 
-                        (removed)="remove(tag)">
+                        (removed)="remove(interest)">
                 {{tag}}
                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
               </mat-chip>
@@ -80,7 +80,7 @@
                      [matChipInputAddOnBlur]="addOnBlur"
                      (matChipInputTokenEnd)="add($event)">
             </mat-chip-list>
-          </mat-form-field>
+    </mat-form-field>
     
 
     <br/><br/>
