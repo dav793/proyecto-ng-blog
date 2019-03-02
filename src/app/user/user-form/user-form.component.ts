@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { Component, OnInit, ElementRef, ViewChild} from '@angular/core';
+import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 
 import { UserService } from '../user.service';
 import { UserNameValidator } from '../user-form/user-name.validator';
 
-import {MatChipInputEvent} from '@angular/material';
+import {MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 import { User } from '../user.model';
 
@@ -29,6 +32,7 @@ export class UserFormComponent implements OnInit {
   model: User;
 
   interests = [];
+  allInterests = ['holaMundo', 'typeScript', 'logoWR'];
 
   // propiedades para el chiplist
   visible = true;
@@ -36,8 +40,18 @@ export class UserFormComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  
+  interestCtrl = new FormControl;
+  filteredInterests: Observable<string[]>;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) { }
+  @ViewChild('interestInput') interestInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+
+  constructor(private userService: UserService, private formBuilder: FormBuilder) { 
+    this.filteredInterests = this.interestCtrl.valueChanges.pipe(
+      startWith(null),
+      map((interest: string | null) => interest ? this._filter(interest) : this.allInterests.slice()));
+  }
  
   ngOnInit() {
     if (this.userService.loggedInUser) {
@@ -110,33 +124,42 @@ export class UserFormComponent implements OnInit {
   // }
 //////////////////////////////////////////////////////////////////
 add(event: MatChipInputEvent): void {
-  const input = event.input;
-  const value = event.value;
+  
+  if (!this.matAutocomplete.isOpen) {
+    const input = event.input;
+    const value = event.value;
 
-  // Add our tag
-  if ((value || '').trim()) {
-    this.interests.push(value.trim());
-  }
+    // Add our interest
+    if ((value || '').trim()) {
+      this.interests.push(value.trim());
+    }
 
-  // Reset the input value
-  if (input) {
-    input.value = '';
-  }
-}
-
-addInArray(tag: string) {
-  // Add our tag
-  if ((tag || '').trim()) {
-    this.interests.push(tag.trim());
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+    this.interestCtrl.setValue(null);
   }
 }
 
-remove(tag: string): void {
-  const index = this.interests.indexOf(tag);
+remove(interest: string): void {
+  const index = this.interests.indexOf(interest);
 
   if (index >= 0) {
     this.interests.splice(index, 1);
   }
+}
+
+selected(event: MatAutocompleteSelectedEvent): void {
+  this.interests.push(event.option.viewValue);
+  this.interestInput.nativeElement.value = '';
+  this.interestCtrl.setValue(null);
+}
+
+private _filter(value: string): string[] {
+  const filterValue = value.toLowerCase();
+
+  return this.allInterests.filter(interest => interest.toLowerCase().indexOf(filterValue) === 0);
 }
 ///////////////////////////////////////////////////////////////////
 

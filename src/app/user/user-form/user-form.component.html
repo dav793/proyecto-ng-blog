@@ -65,22 +65,34 @@
         </form>
     </div> -->
 
+    <br/><br/>
+
     <mat-form-field class="example-chip-list">
-            <mat-chip-list #chipList formControlName="interests">
-              <mat-chip *ngFor="let interest of interests" 
-                        [selectable]="selectable"
-                        [removable]="removable" 
-                        (removed)="remove(interest)">
-                {{tag}}
-                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-              </mat-chip>
-              <input placeholder="New tag..."
-                     [matChipInputFor]="chipList"
-                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                     [matChipInputAddOnBlur]="addOnBlur"
-                     (matChipInputTokenEnd)="add($event)">
-            </mat-chip-list>
-    </mat-form-field>
+        <mat-chip-list #chipList>
+          <mat-chip
+            *ngFor="let interest of interests"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(interest)">
+            {{interest}}
+            <mat-icon matChipRemove *ngIf="removable"></mat-icon>
+          </mat-chip>
+          <input
+            placeholder="New interest..."
+            #interestInput
+            [formControl]="interestCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let interest of filteredInterest | async" [value]="interest">
+            {{interest}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
     
 
     <br/><br/>
