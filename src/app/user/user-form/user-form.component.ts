@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-// import {MatChipInputEvent} from '@angular/material';
-// import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 import { UserService } from '../user.service';
 import { UserNameValidator } from '../user-form/user-name.validator';
+
+import {MatChipInputEvent} from '@angular/material';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 import { User } from '../user.model';
 
@@ -14,7 +15,11 @@ import { User } from '../user.model';
   styleUrls: ['./user-form.component.css']
 })
 
+
+
 export class UserFormComponent implements OnInit {
+
+  
   
   // la idea es poder interpolarlos en el template dependiendo si queremos editar o crear un usuario :v
   pageTitleCreateUser = 'Create User';
@@ -28,11 +33,11 @@ export class UserFormComponent implements OnInit {
   interests = [];
 
   // propiedades para el chiplist
-  // visible = true;
-  // selectable = true;
-  // removable = true;
-  // addOnBlur = true;
-  // readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
  
@@ -105,30 +110,37 @@ export class UserFormComponent implements OnInit {
   //     return null;
   //   return this.form.get('interests').value;
   // }
+//////////////////////////////////////////////////////////////////
+add(event: MatChipInputEvent): void {
+  const input = event.input;
+  const value = event.value;
 
-  // add(event: MatChipInputEvent): void {
-  //   const input = event.input;
-  //   const value = event.value;
+  // Add our tag
+  if ((value || '').trim()) {
+    this.interests.push(value.trim());
+  }
 
-  //   // Add our tag
-  //   if ((value || '').trim()) {
-  //     this.interests.push({name: value.trim()});
-  //   }
+  // Reset the input value
+  if (input) {
+    input.value = '';
+  }
+}
 
-  //   // Reset the input value
-  //   if (input) {
-  //     input.value = '';
-  //   }
-  // }
+addInArray(tag: string) {
+  // Add our tag
+  if ((tag || '').trim()) {
+    this.interests.push(tag.trim());
+  }
+}
 
-  // remove(interest: any): void {
-  //   const index = this.interests.indexOf(interest);
+remove(tag: string): void {
+  const index = this.interests.indexOf(tag);
 
-  //   if (index >= 0) {
-  //     this.interests.splice(index, 1);
-  //   }
-  // }
-
+  if (index >= 0) {
+    this.interests.splice(index, 1);
+  }
+}
+///////////////////////////////////////////////////////////////////
 
 
   get userNameValidatorErrors() {
