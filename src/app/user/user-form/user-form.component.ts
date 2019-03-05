@@ -1,14 +1,14 @@
-import { Component, OnInit, ElementRef, ViewChild} from '@angular/core';
-import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { UserService } from '../user.service';
 import { UserNameValidator } from '../user-form/user-name.validator';
 
-import {MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete} from '@angular/material';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 import { User } from '../user.model';
 
@@ -18,10 +18,8 @@ import { User } from '../user.model';
   styleUrls: ['./user-form.component.css']
 })
 
-
-
 export class UserFormComponent implements OnInit {
-  
+
   // la idea es poder interpolarlos en el template dependiendo si queremos editar o crear un usuario :v
   pageTitleCreateUser = 'Create User';
   pageTitleEditUser = 'Edit User';
@@ -40,24 +38,23 @@ export class UserFormComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  
   interestCtrl = new FormControl;
   filteredInterests: Observable<string[]>;
 
   @ViewChild('interestInput') interestInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) { 
+  constructor(private userService: UserService, private formBuilder: FormBuilder) {
     this.filteredInterests = this.interestCtrl.valueChanges.pipe(
       startWith(null),
       map((interest: string | null) => interest ? this._filter(interest) : this.allInterests.slice()));
   }
- 
+
   ngOnInit() {
     if (this.userService.loggedInUser) {
       // tslint:disable-next-line:no-unused-expression
       this.isLogged = true;
-    } else { 
+    } else {
       // tslint:disable-next-line:no-unused-expression
       this.isLogged = false;
     }
@@ -66,111 +63,64 @@ export class UserFormComponent implements OnInit {
     this.interests = this.model.interests;
     // this.interestsForm = this.createInterestsForm(this.interests);
   }
-  
+
   createFormWithBuilder(model: User): FormGroup {
     const group = this.formBuilder.group({
-      username:       [model.username, [Validators.required], [UserNameValidator.createValidator(this.userService)]],
-      fullName:       [model.fullName, [Validators.required]],
-      email:          [model.email, [Validators.email]],
-      birthDate:      [model.birthDate, []],
-      pathImg:        [model.pathImg, []],
-      interests:      [model.interests, []]
+      username: [model.username, [Validators.required], [UserNameValidator.createValidator(this.userService)]],
+      fullName: [model.fullName, [Validators.required]],
+      email: [model.email, [Validators.email]],
+      birthDate: [model.birthDate, []],
+      pathImg: [model.pathImg, []],
+      interests: [model.interests, []]
     });
     return group;
   }
 
-  // createInterestsForm(interests: string[]): FormGroup {
-  //   let interestsObj = {};
-  //   interests.forEach(interest => {
-  //     interestsObj[interest] = [false, []];
-  //   });
+  add(event: MatChipInputEvent): void {
 
-  //   const group = this.formBuilder.group(interestsObj);
-  //   this.watchInterestsForm(group);
-  //   return group;
-  // }
+    if (!this.matAutocomplete.isOpen) {
+      const input = event.input;
+      const value = event.value;
 
-  // watchInterestsForm(group: FormGroup) {
-  //   let interests = Object.keys(group.controls);
+      // Add our interest
+      if ((value || '').trim()) {
+        this.interests.push(value.trim());
+      }
 
-  //   interests.forEach(interest => {
-  //     group.get(interest).valueChanges.subscribe(change => {
-
-  //       if (change === true) {    // agregar a intereses
-  //         let selectedInterests = this.selectedInterests;
-  //         if (selectedInterests.indexOf(interest) === -1) {   // no existe interest en elemento del form
-  //           selectedInterests.push(interest);
-  //           this.form.get('interests').setValue(selectedInterests);
-  //         }
-  //       }
-  //       else {                    // remover de intereses
-
-  //         let selectedInterests = this.selectedInterests;
-  //         let interestIndex = selectedInterests.indexOf(interest);
-  //         if (interestIndex !== -1) {   // existe interest en elemento del form
-  //           selectedInterests.splice(interestIndex, 0); // se le cambió 1 por 0 para que mantenga los check boxes en el form
-  //           this.form.get('interests').setValue(selectedInterests);
-  //         }
-
-  //       }
-  //     });
-  //   });
-  // }
-
-  // get selectedInterests(): string[] {
-  //   if (!this.form)
-  //     return null;
-  //   return this.form.get('interests').value;
-  // }
-//////////////////////////////////////////////////////////////////
-add(event: MatChipInputEvent): void {
-  
-  if (!this.matAutocomplete.isOpen) {
-    const input = event.input;
-    const value = event.value;
-
-    // Add our interest
-    if ((value || '').trim()) {
-      this.interests.push(value.trim());
+      // Reset the input value
+      if (input) {
+        input.value = '';
+      }
+      this.interestCtrl.setValue(null);
     }
+  }
 
-    // Reset the input value
-    if (input) {
-      input.value = '';
+  remove(interest: string): void {
+    const index = this.interests.indexOf(interest);
+
+    if (index >= 0) {
+      this.interests.splice(index, 1);
     }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.interests.push(event.option.viewValue);
+    this.interestInput.nativeElement.value = '';
     this.interestCtrl.setValue(null);
   }
-}
 
-remove(interest: string): void {
-  const index = this.interests.indexOf(interest);
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
 
-  if (index >= 0) {
-    this.interests.splice(index, 1);
+    return this.allInterests.filter(interest => interest.toLowerCase().indexOf(filterValue) === 0);
   }
-}
-
-selected(event: MatAutocompleteSelectedEvent): void {
-  this.interests.push(event.option.viewValue);
-  this.interestInput.nativeElement.value = '';
-  this.interestCtrl.setValue(null);
-}
-
-private _filter(value: string): string[] {
-  const filterValue = value.toLowerCase();
-
-  return this.allInterests.filter(interest => interest.toLowerCase().indexOf(filterValue) === 0);
-}
-///////////////////////////////////////////////////////////////////
-
-
   get userNameValidatorErrors() {
     if (!this.form)
       return null;
-     
-      if (this.form.get('username').errors && this.form.get('username').errors.hasOwnProperty('userNameAvailable')){
-        return this.form.get('username').errors.userNameAvailable;
-     }
+
+    if (this.form.get('username').errors && this.form.get('username').errors.hasOwnProperty('userNameAvailable')) {
+      return this.form.get('username').errors.userNameAvailable;
+    }
   }
 
   checkLoggedUser() {
@@ -193,7 +143,6 @@ private _filter(value: string): string[] {
     }
     this.form = this.createFormWithBuilder(this.model);
     this.interests = this.model.interests;
-    // this.interestsForm = this.createInterestsForm(this.interests);
   }
-  
+
 }
