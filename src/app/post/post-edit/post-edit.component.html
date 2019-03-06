@@ -70,7 +70,7 @@
       
       <mat-form-field class="example-chip-list">
         <mat-chip-list #chipList formControlName="tags">
-          <mat-chip *ngFor="let tag of tagsList" 
+          <mat-chip *ngFor="let tag of model.tags" 
                     [selectable]="selectable"
                     [removable]="removable" 
                     (removed)="remove(tag)">

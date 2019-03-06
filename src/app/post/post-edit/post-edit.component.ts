@@ -35,7 +35,6 @@ export class PostEditComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  tagsList = [];
   tagsTest = ['Marvel', 'DC', 'Malabares', 'Celulares', 'Breaking Bad', 'Samsung', 'Iphone'];
 
 
@@ -49,7 +48,6 @@ export class PostEditComponent implements OnInit {
       this.postId = this.route.snapshot.paramMap.get('id');
       let singlePost = this.dataService.findById('posts', this.postId);
       this.model = new Post(singlePost);
-      this.tagsList = this.model.tags;
     }
 
     this.postForm = this.createFormWithBuilder(this.model);
@@ -114,6 +112,10 @@ export class PostEditComponent implements OnInit {
   //   return this.postForm.get('tags').value;
   // }
 
+  setPreview() {
+    this.preview = !this.preview;
+  }
+
   buttonAction() {
 
     if (this.isCreate) {
@@ -141,7 +143,7 @@ export class PostEditComponent implements OnInit {
 
     // Add our tag
     if ((value || '').trim()) {
-      this.tagsList.push(value.trim());
+      this.model.tags.push(value.trim());
     }
 
     // Reset the input value
@@ -153,15 +155,15 @@ export class PostEditComponent implements OnInit {
   addInArray(tag: string) {
     // Add our tag
     if ((tag || '').trim()) {
-      this.tagsList.push(tag.trim());
+      this.model.tags.push(tag.trim());
     }
   }
 
   remove(tag: string): void {
-    const index = this.tagsList.indexOf(tag);
+    const index = this.model.tags.indexOf(tag);
 
     if (index >= 0) {
-      this.tagsList.splice(index, 1);
+      this.model.tags.splice(index, 1);
     }
   }
 }
