@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { UserService } from '../user.service';
 import { UserNameValidator } from '../user-form/user-name.validator';
 
@@ -28,6 +30,7 @@ export class UserFormComponent implements OnInit {
   interestsForm: FormGroup;
   isLogged = false;
   model: User;
+  userId: string;
 
   interests = [];
   allInterests = ['holaMundo', 'typeScript', 'logoWR'];
@@ -44,13 +47,29 @@ export class UserFormComponent implements OnInit {
   @ViewChild('interestInput') interestInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) {
+  constructor(
+    private userService: UserService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.filteredInterests = this.interestCtrl.valueChanges.pipe(
       startWith(null),
       map((interest: string | null) => interest ? this._filter(interest) : this.allInterests.slice()));
   }
 
   ngOnInit() {
+
+    if (!this.isCreate) {
+      this.userId = this.route.snapshot.paramMap.get('id');
+      let userToShow = this.userService.findUserById(this.userId);
+      this.model = new User(userToShow);
+      this.pageTitle = this.pageTitleEditUser;
+    } else {
+      this.model = new User({});
+      this.pageTitle = this.pageTitleCreateUser;
+    }
+
     if (this.userService.loggedInUser) {
       // tslint:disable-next-line:no-unused-expression
       this.isLogged = true;
@@ -58,10 +77,17 @@ export class UserFormComponent implements OnInit {
       // tslint:disable-next-line:no-unused-expression
       this.isLogged = false;
     }
-    this.checkLoggedUser();
     this.form = this.createFormWithBuilder(this.model);
     this.interests = this.model.interests;
-    // this.interestsForm = this.createInterestsForm(this.interests);
+  }
+
+  get isCreate() { // para saber si lo que vamos a hacer es crear o editar, esto dependiendo de la ruta
+    let ruta = this.router.url.split('/');
+
+    if (ruta[2] === 'create')
+      return true;
+    else
+      return false;
   }
 
   createFormWithBuilder(model: User): FormGroup {
@@ -123,19 +149,9 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  checkLoggedUser() {
-    if (this.isLogged) { // usuario logueado
-      this.model = this.userService.loggedInUser;
-      this.pageTitle = this.pageTitleEditUser;
-    } else { // usuario no logueado
-      this.model = new User({});
-      this.pageTitle = this.pageTitleCreateUser;
-    }
-  }
-
-  onSubmit() {
+  buttonAction() {
     const changesInUser = new User(this.form.value);
-    changesInUser.id = this.model.id; // como el form saca info del id, esta debe agregarse
+    changesInUser.id = this.model.id; // como el form no saca info del id, esta debe agregarse
     if (this.isLogged) { // usuario logueado
       this.model = this.userService.editLoggedUser(changesInUser);
     } else { // usuario no logueado

@@ -19,7 +19,7 @@
     </li>
 
     <li *ngIf="userIsLogged">
-      <a class="nav-link" (click)="emitLogOutClick()">Log Out</a>
+      <a class="nav-link active" [routerLink]="['/posts/list']" (click)="emitLogOutClick()">Log Out</a>
     </li>
 
     <li *ngIf="!userIsLogged">

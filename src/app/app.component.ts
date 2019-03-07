@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { DataService } from './data.service';
 import { UserService } from './user/user.service';
 
+import { User } from '../app/user/user.model';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -37,6 +39,12 @@ export class AppComponent {
 
   logOut() {
     console.log('logging out...');
+    // tslint:disable-next-line:no-unused-expression
+    this.userService.logOut();
+  }
+
+  setUserOnNav(): User | null {
+    return this.userService.loggedInUser;
   }
 
 }

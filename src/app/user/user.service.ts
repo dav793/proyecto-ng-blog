@@ -59,6 +59,15 @@ export class UserService {
     return null;
   }
 
+  findUserById(id: string): User|null {
+    let users = this.dataService.findAll('users');
+    let user = users.find(u => u.id === id);
+
+    if (user)
+      return user;
+    return null;
+  }
+
   checkUserNameAvailable(username: string): Observable<boolean> {
     return new Observable<boolean>(observer => {
         if (this.findUserByUsername(username) && this._loggedInUser.username !== username)
@@ -74,9 +83,10 @@ export class UserService {
     return this.dataService.updateById('users', userForEdit.id, userForEdit);
   }
   createNewUser(newUser: any): any {
-    this._loggedInUser = newUser;
-    localStorage.setItem('loggedUser', JSON.stringify(newUser));
-    return this.dataService.create('users', newUser);
+    let userCreated = this.dataService.create('users', newUser);
+    this._loggedInUser = userCreated;
+    localStorage.setItem('loggedUser', JSON.stringify(userCreated));
+    return userCreated;
   }
 
 }

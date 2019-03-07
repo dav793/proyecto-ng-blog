@@ -1,6 +1,6 @@
 
 <app-nav
-  [loggedUser]="null"
+  [loggedUser]="setUserOnNav()"
   (clickedPosts)="goToPosts()"
   (clickedProfile)="goToProfile()"
   (clickedLogIn)="goToLogIn()"

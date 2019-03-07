@@ -80,7 +80,7 @@
 
     <!-- <Debe redireccionar a la vista del usuario -->
     <a [routerLink]="['/posts/list']">
-        <button type="submit" [disabled]="!form.valid">Save</button>
+        <button type="submit" (click)="buttonAction()"[disabled]="!form.valid">Save</button>
     </a>
 
 </form>
