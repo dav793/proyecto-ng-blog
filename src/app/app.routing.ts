@@ -19,7 +19,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: '', pathMatch: 'full', redirectTo: 'posts' },
-  { path: '**', pathMatch: 'full', redirectTo: '' }
+  { path: '**', pathMatch: 'full', redirectTo: 'posts/list' }
 ];
 
 @NgModule({

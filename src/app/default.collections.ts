@@ -8,7 +8,7 @@ export let defaultCollections = {
       title: 'A blog post',
       author: '152390144',
       date: 1542320151194,
-      body: 'Lorem ipsum',
+      body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec lacinia turpis. Morbi viverra non lectus vehicula aliquam. Aliquam mollis, felis nec ultrices tempus, sapien felis imperdiet nunc, non ornare lectus est ac felis. Aliquam erat volutpat. Sed ullamcorper eros non felis maximus vestibulum. Aenean gravida aliquam ante, ac blandit ante vehicula sit amet. Mauris sit amet metus quis massa tincidunt malesuada et et libero. Maecenas eget enim nulla.',
       tags: [
         'perros',
         'casa',
@@ -26,7 +26,7 @@ export let defaultCollections = {
       title: 'Another blog post',
       author: '152390145',
       date: 1542320111294,
-      body: 'Lorem ipsum',
+      body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec lacinia turpis. Morbi viverra non lectus vehicula aliquam. Aliquam mollis, felis nec ultrices tempus, sapien felis imperdiet nunc, non ornare lectus est ac felis. Aliquam erat volutpat. Sed ullamcorper eros non felis maximus vestibulum. Aenean gravida aliquam ante, ac blandit ante vehicula sit amet. Mauris sit amet metus quis massa tincidunt malesuada et et libero. Maecenas eget enim nulla.',
       tags: [
         'gatos',
         'motos',
@@ -43,7 +43,7 @@ export let defaultCollections = {
       title: 'Post Malone Bio',
       author: '152390145',
       date: 1542320111294,
-      body: 'Lorem ipsum',
+      body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec lacinia turpis. Morbi viverra non lectus vehicula aliquam. Aliquam mollis, felis nec ultrices tempus, sapien felis imperdiet nunc, non ornare lectus est ac felis. Aliquam erat volutpat. Sed ullamcorper eros non felis maximus vestibulum. Aenean gravida aliquam ante, ac blandit ante vehicula sit amet. Mauris sit amet metus quis massa tincidunt malesuada et et libero. Maecenas eget enim nulla.',
       tags: [
         'gatos',
         'mocos',

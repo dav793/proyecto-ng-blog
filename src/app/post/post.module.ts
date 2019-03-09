@@ -19,7 +19,7 @@ import { PostFilterService } from './services/postFilter.service';
     QuillModule
   ],
   declarations: [
-    ListadoPostComponent, 
+    ListadoPostComponent,
     PostFilterFormComponent,
     PostThumbnailComponent
   ],
