@@ -1,0 +1,49 @@
+<div *ngIf="this.userExists===true">
+  <h2>
+    {{this.model.username}}´s profile
+  </h2>
+
+  <br /><br />
+
+  <img src={{this.model.pathImg}} class="imgSize">
+
+  <br /><br />
+
+  <label>
+    <b>FullName:</b> {{this.model.fullName}}
+  </label>
+
+  <br /><br />
+
+  <label>
+    <b>Email:</b> {{this.model.email}}
+  </label>
+
+  <br /><br />
+
+  <label>
+    <b>Interests:</b>
+  </label>
+
+  <br /><br />
+
+  <label>
+    <b>Posts:</b>
+  </label>
+
+  <div *ngIf="this.isLoggedUser===true">
+    <a [routerLink]="['/users/edit', this.model.id]">
+      <button type="submit">Edit your profile</button>
+    </a>  
+  </div>
+  
+</div>
+
+
+
+
+<div *ngIf="this.userExists===false">
+  <H2>
+    This user don't exist, please check your input
+  </H2>
+</div>
