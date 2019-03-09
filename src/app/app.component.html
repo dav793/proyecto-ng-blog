@@ -1,10 +1,11 @@
 
 <app-nav
-  [loggedUser]="null"
+  [loggedUser]="setUserOnNav()"
   (clickedPosts)="goToPosts()"
   (clickedProfile)="goToProfile()"
   (clickedLogIn)="goToLogIn()"
   (clickedLogOut)="logOut()"
+  (clickedRegister)="goToUserRegister()"
 ></app-nav>
 
 <router-outlet></router-outlet>
