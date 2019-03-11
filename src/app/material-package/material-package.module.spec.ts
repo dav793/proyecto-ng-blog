@@ -11,3 +11,4 @@ describe('MaterialPackageModule', () => {
     expect(materialPackageModule).toBeTruthy();
   });
 });
+

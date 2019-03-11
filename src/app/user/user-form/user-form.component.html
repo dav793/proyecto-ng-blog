@@ -1,0 +1,86 @@
+<h2>{{pageTitle}}</h2>
+
+<br />
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label>
+        Full Name:
+        <input type="text" formControlName="fullName">
+    </label>
+    <label *ngIf="form.get('fullName').errors" class="error-text">
+        <i>*Required </i>
+    </label>
+    <br /><br />
+
+    <label>
+        UserName:
+        <input type="text" formControlName="username">
+    </label>
+    <label *ngIf="form.get('username').errors && form.get('username').errors.required" class="error-text">
+        <i>*Required</i>
+    </label>
+    <label *ngIf="userNameValidatorErrors" class="error-text">
+        <i>*this UserName is not available</i>
+    </label>
+
+    <br /><br />
+
+    <label>
+        Email:
+        <input type="text" formControlName="email">
+    </label>
+    <label *ngIf="form.get('email').errors && form.get('email').errors.email" class="error-text">
+        <i>Not a valid email</i>
+    </label>
+    <br /><br />
+
+    <div *ngIf="this.isLogged===false">
+        <label>
+            Birth Date:
+            <input type="text" formControlName="birthDate">
+        </label>
+        <br /><br />
+    </div>
+
+    <label>
+        Profile Image:
+        <input type="text" formControlName="pathImg">
+        <br /><br />
+        <img src={{model.pathImg}} class="imgSize">
+    </label>
+
+    <br /><br />
+
+    <label>
+        Interests:
+    </label>
+
+    <br /><br />
+
+    <mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList>
+            <mat-chip *ngFor="let interest of interests" [selectable]="selectable" [removable]="removable"
+                (removed)="remove(interest)">
+                {{interest}}
+                <mat-icon matChipRemove *ngIf="removable"></mat-icon>
+            </mat-chip>
+            <input placeholder="New interest..." #interestInput [formControl]="interestCtrl" [matAutocomplete]="auto"
+                [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let interest of filteredInterest | async" [value]="interest">
+                {{interest}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+
+    <br /><br />
+
+    <!-- <Debe redireccionar a la vista del usuario -->
+    <a [routerLink]="['/posts/list']">
+        <button type="submit" (click)="buttonAction()"[disabled]="!form.valid">Save</button>
+    </a>
+
+</form>

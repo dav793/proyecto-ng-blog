@@ -24,7 +24,7 @@ import { PostFilterService } from './services/postFilter.service';
     MaterialPackageModule
   ],
   declarations: [
-    ListadoPostComponent, 
+    ListadoPostComponent,
     PostFilterFormComponent,
     PostThumbnailComponent,
     PostEditComponent

@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { DataService } from './data.service';
+import { UserService } from './user/user.service';
+
+import { User } from '../app/user/user.model';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +14,12 @@ import { DataService } from './data.service';
 export class AppComponent {
 
   constructor(
-    private dataService: DataService
-  ) {}
+    private dataService: DataService,
+    private userService: UserService,
+    private router: Router
+  ) {
+    this.userService.setLoggedInUserFromStorage();
+  }
 
   goToPosts() {
     console.log('navigate to posts');
@@ -25,8 +33,18 @@ export class AppComponent {
     console.log('navigate to log in');
   }
 
+  goToUserRegister() {
+    this.router.navigate(['users', 'create']);
+  }
+
   logOut() {
     console.log('logging out...');
+    // tslint:disable-next-line:no-unused-expression
+    this.userService.logOut();
+  }
+
+  setUserOnNav(): User | null {
+    return this.userService.loggedInUser;
   }
 
 }

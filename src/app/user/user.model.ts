@@ -14,7 +14,7 @@ export class User {
     this.fullName = data.fullName || '';
     this.birthDate = data.birthDate || 0;
     this.email = data.email || '';
-    this.pathImg = data.pathImg || '';
+    this.pathImg = data.pathImg || 'https://www.it-trans.org/technical-data/img/user-default-fontawesome_1_1_330x330.png';
     this.interests = data.interests || [];
   }
 }
