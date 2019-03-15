@@ -24,22 +24,31 @@
   <label>
     <b>Interests:</b>
   </label>
+  <mat-chip-list>
+    <mat-chip *ngFor="let element of interests">{{element}}</mat-chip>
+  </mat-chip-list>
 
   <br /><br />
 
   <label>
     <b>Posts:</b>
   </label>
+  <ul>
+    <li *ngFor="let post of postsToShow">
+      <h6>{{post.title}}</h6>
+      <br />
+      <label>{{post.body}}</label>
+
+    </li>
+  </ul>
 
   <div *ngIf="this.isLoggedUser===true">
     <a [routerLink]="['/users/edit', this.model.id]">
       <button type="submit">Edit your profile</button>
-    </a>  
+    </a>
   </div>
-  
+
 </div>
-
-
 
 
 <div *ngIf="this.userExists===false">

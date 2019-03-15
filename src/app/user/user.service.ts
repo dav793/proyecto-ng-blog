@@ -78,6 +78,17 @@ export class UserService {
     });
   }
 
+  getPostsFromUser(userId: string): string[]{
+    let allPosts = this.dataService.findAll('posts');
+    let postsFromUser = [];
+    allPosts.forEach(element => {
+      if (element.author === userId) {
+        postsFromUser.push(element);
+      }
+    });
+    return postsFromUser;
+  }
+
   editLoggedUser(userForEdit: any): any {
     localStorage.setItem('loggedUser', JSON.stringify(userForEdit));
     return this.dataService.updateById('users', userForEdit.id, userForEdit);

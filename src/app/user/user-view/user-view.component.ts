@@ -1,5 +1,7 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { MatChipInputEvent } from '@angular/material';
 
 import { UserService } from '../user.service';
 
@@ -18,6 +20,8 @@ export class UserViewComponent implements OnInit {
   isLoggedUser: boolean;
   pageTitle: string;
   titleForLogged: 'Your Profile';
+  postsToShow = [];
+  interest = [];
 
   constructor(
     private userService: UserService,
@@ -29,6 +33,8 @@ export class UserViewComponent implements OnInit {
     if (this.userService.findUserById(this.userId)) {
       let userToShow = this.userService.findUserById(this.userId);
       this.model = new User(userToShow);
+      this.postsToShow = this.userService.getPostsFromUser(this.userId);
+      this.interest = this.model.interests;
       this.userExists = true;
     } else {
       this.userExists = false;
