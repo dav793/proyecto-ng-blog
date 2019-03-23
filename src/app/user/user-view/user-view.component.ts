@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 import { MatChipInputEvent } from '@angular/material';
 
@@ -13,7 +14,7 @@ import { User } from '../user.model';
   styleUrls: ['./user-view.component.css']
 })
 export class UserViewComponent implements OnInit {
-
+  form: FormGroup;
   model: User;
   userId: string;
   userExists: boolean;
@@ -25,10 +26,24 @@ export class UserViewComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getUserToShow();
+    this.form = this.createFormWithBuilder(this.model);
+  }
+
+  compareId() {
+    if (this.userId === this.userService.loggedInUser.id) {
+      this.isLoggedUser = true;
+    } else {
+      this.isLoggedUser = false;
+    }
+  }
+
+  getUserToShow() {
     this.userId = this.route.snapshot.paramMap.get('id');
     if (this.userService.findUserById(this.userId)) {
       let userToShow = this.userService.findUserById(this.userId);
@@ -44,17 +59,17 @@ export class UserViewComponent implements OnInit {
     }
   }
 
-  compareId() {
-    if (this.userId === this.userService.loggedInUser.id) {
-      this.isLoggedUser = true;
-    } else {
-      this.isLoggedUser = false;
-    }
+  createFormWithBuilder(model: User): FormGroup {
+    const group = this.formBuilder.group({
+      username: [model.username, []],
+      fullName: [model.fullName, []],
+      email: [model.email, []],
+      birthDate: [model.birthDate, []],
+      pathImg: [model.pathImg, []],
+      interests: [model.interests, []]
+    });
+    return group;
   }
-
-  // refresh() {
-  //   this.router.navigate(['/users/profile', this.userId]);
-  // }
 
 }
 
