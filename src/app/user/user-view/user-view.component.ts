@@ -44,19 +44,21 @@ export class UserViewComponent implements OnInit {
   }
 
   getUserToShow() {
-    this.userId = this.route.snapshot.paramMap.get('id');
-    if (this.userService.findUserById(this.userId)) {
-      let userToShow = this.userService.findUserById(this.userId);
-      this.model = new User(userToShow);
-      this.postsToShow = this.userService.getPostsFromUser(this.userId);
-      this.interest = this.model.interests;
-      this.userExists = true;
-    } else {
-      this.userExists = false;
-    }
-    if (this.userService.loggedInUser) {
-      this.compareId();
-    }
+    this.route.params.subscribe(params => {
+      this.userId = this.route.snapshot.paramMap.get('id');
+      if (this.userService.findUserById(this.userId)) {
+        let userToShow = this.userService.findUserById(this.userId);
+        this.model = new User(userToShow);
+        this.postsToShow = this.userService.getPostsFromUser(this.userId);
+        this.interest = this.model.interests;
+        this.userExists = true;
+      } else {
+        this.userExists = false;
+      }
+      if (this.userService.loggedInUser) {
+        this.compareId();
+      }
+    });
   }
 
   createFormWithBuilder(model: User): FormGroup {
