@@ -22,7 +22,7 @@ export class UserViewComponent implements OnInit {
   pageTitle: string;
   titleForLogged: 'Your Profile';
   postsToShow = [];
-  interest = [];
+  interests = [];
 
   constructor(
     private userService: UserService,
@@ -50,7 +50,7 @@ export class UserViewComponent implements OnInit {
         let userToShow = this.userService.findUserById(this.userId);
         this.model = new User(userToShow);
         this.postsToShow = this.userService.getPostsFromUser(this.userId);
-        this.interest = this.model.interests;
+        this.interests = this.model.interests;
         this.userExists = true;
       } else {
         this.userExists = false;
