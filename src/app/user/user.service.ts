@@ -80,12 +80,7 @@ export class UserService {
 
   getPostsFromUser(userId: string): string[]{
     let allPosts = this.dataService.findAll('posts');
-    let postsFromUser = [];
-    allPosts.forEach(element => {
-      if (element.author === userId) {
-        postsFromUser.push(element);
-      }
-    });
+    let postsFromUser = allPosts.filter(post => post.author === userId);
     return postsFromUser;
   }
 

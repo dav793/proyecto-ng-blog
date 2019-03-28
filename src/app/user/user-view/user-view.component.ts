@@ -31,7 +31,7 @@ export class UserViewComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getUserToShow();
+    this.setupUser();
     this.form = this.createFormWithBuilder(this.model);
   }
 
@@ -43,7 +43,7 @@ export class UserViewComponent implements OnInit {
     }
   }
 
-  getUserToShow() {
+  setupUser() {
     this.route.params.subscribe(params => {
       this.userId = this.route.snapshot.paramMap.get('id');
       if (this.userService.findUserById(this.userId)) {
