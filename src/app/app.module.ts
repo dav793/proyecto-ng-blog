@@ -10,6 +10,8 @@ import { AppRoutingModule } from './app.routing';
 import { LoginComponent } from './login/login.component';
 import { AppComponent } from './app.component';
 
+import { MaterialPackageModule } from './material-package/material-package.module';
+
 import { DataService } from './data.service';
 import { UserService } from './user/user.service';
 
@@ -30,6 +32,7 @@ import { NavComponent } from './nav/nav.component';
     NgbModule,
     AppRoutingModule,
     PostModule,
+    MaterialPackageModule,
     UserModule
   ],
   providers: [
