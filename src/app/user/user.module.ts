@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../app.routing';
 
 import { UserFormComponent } from './user-form/user-form.component';
+import { UserViewComponent } from '../user/user-view/user-view.component';
 
 import { MaterialPackageModule } from '../material-package/material-package.module';
 
@@ -17,10 +18,12 @@ import { MaterialPackageModule } from '../material-package/material-package.modu
     AppRoutingModule
   ],
   declarations: [
-    UserFormComponent
+    UserFormComponent,
+    UserViewComponent
   ],
   exports: [
-    UserFormComponent
+    UserFormComponent,
+    UserViewComponent
   ]
 })
 export class UserModule { }

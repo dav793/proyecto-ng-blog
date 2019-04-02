@@ -14,7 +14,7 @@
 
   <div class="nav-item my-flex">
     <li *ngIf="userIsLogged">
-      <a class="nav-link" (click)="emitProfileClick()">Welcome {{loggedUserName}}</a>
+      <a class="nav-link" [routerLink]="['users/profile', this.loggedUser.id]" (click)="emitProfileClick()">Welcome {{loggedUserName}}</a>
     </li>
 
     <li *ngIf="!userIsLogged">
